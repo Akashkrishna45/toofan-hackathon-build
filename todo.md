@@ -51,12 +51,12 @@
 - [x] Save the direct-Vite workflow correction checkpoint.
 - [x] Ensure the supplied St. John’s School image is committed locally and referenced through the correct GitHub Pages static path.
 - [x] Validate the actual school-image URL, direct-link fallback, and full mobile title in the generated static output and local responsive preview.
-- [ ] Synchronize the repaired school image, direct-link fallback, mobile hero update, and repository-base router repair to GitHub Pages, then verify the live deployment.
+- [x] Synchronize the repaired school image, direct-link fallback, mobile hero update, and repository-base router repair to GitHub Pages, then verify the live deployment.
 - [x] Add a GitHub Pages direct-link fallback so the published site opens without a 404 or manual Home-button recovery.
 - [x] Correct the clipped mobile Hackfinity title and verify the complete hero composition at phone size.
-- [ ] Validate the repaired static output, actual school image, route fallback, and mobile hero after the actual image file is committed to GitHub.
-- [ ] Replace the broken live St. John’s image with a GitHub Pages-reliable host treatment and static-asset fallback.
-- [ ] Validate the repaired static output and guide the user through publishing the image fix on GitHub Pages.
+- [x] Validate the repaired static output, actual school image, route fallback, and mobile hero after the actual image file is committed to GitHub.
+- [x] Replace the broken live St. John’s image with a GitHub Pages-reliable host treatment and static-asset fallback.
+- [x] Validate the repaired static output and guide the user through publishing the image fix on GitHub Pages.
 - [x] Configure the client router to respect Vite’s GitHub Pages repository base path so the deployed root route does not render the internal 404 screen.
 
 ## Reference notes
