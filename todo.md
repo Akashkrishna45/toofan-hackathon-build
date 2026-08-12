@@ -17,6 +17,11 @@
 - [ ] Integrate the recovered HOWNWHY artwork with a protected static-asset URL and correct the St. John’s / HOWNWHY logo placements.
 - [x] Retest the renamed Hackfinity experience at desktop and mobile breakpoints.
 - [x] Add a Four Challenges section with four clear, mobile-friendly TOOFAN-theme challenge cards and organiser-editable challenge details.
+- [x] Remove the word “theme” from the Hackfinity heading hierarchy and present TOOFAN as the supporting event word.
+- [x] Promote the existing St. John’s School mark into a more prominent host-brand placement without distorting the supplied image.
+- [x] Correct the third card to the exact official name: Recovery & Rehabilitation Challenge, then reconfirm all four category labels.
+- [x] Verify the full official-category card set after the exact-name correction on desktop and mobile.
+- [x] Remove badge-like marking from the Hackfinity and TOOFAN identity treatment while preserving clear hierarchy and readability.
 
 ## Reference notes
 

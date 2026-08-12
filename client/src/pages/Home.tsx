@@ -59,30 +59,34 @@ const challengeCards = [
   {
     number: "01",
     icon: <Earth aria-hidden="true" />,
-    title: "Eye of the Storm",
-    kicker: "RESILIENT TOMORROWS",
-    description: "Design a response for the moments communities need ideas to move fast, stay clear, and hold strong.",
+    title: "Awareness Challenge",
+    kicker: "EDUCATE & EMPOWER",
+    description: "Develop innovative solutions that educate students, parents, teachers, and society about the dangers of substance abuse.",
+    examples: ["AI Awareness Chatbot", "VR Awareness Experience", "Interactive Educational Game", "AR Awareness Campaign", "Digital Learning Platform"],
   },
   {
     number: "02",
     icon: <Bot aria-hidden="true" />,
-    title: "Signal Shift",
-    kicker: "HUMAN-CENTRED TECH",
-    description: "Use technology to make an everyday process more useful, more accessible, or more humane.",
+    title: "Prevention Challenge",
+    kicker: "EARLY INTERVENTION",
+    description: "Develop technologies that help prevent substance abuse through education, monitoring, and early intervention.",
+    examples: ["AI-Based Detection Systems", "Anonymous Reporting Platform", "Smart School Safety Dashboard", "Predictive Risk Analytics", "Community Monitoring Solutions"],
   },
   {
     number: "03",
     icon: <HeartHandshake aria-hidden="true" />,
-    title: "Roots × Routes",
-    kicker: "CULTURE IN MOTION",
-    description: "Build a bridge between local stories, shared knowledge, and the tools that shape what comes next.",
+    title: "Recovery & Rehabilitation Challenge",
+    kicker: "WELLNESS & SUPPORT",
+    description: "Develop innovative solutions that support recovery, counselling, mental wellness, and rehabilitation.",
+    examples: ["AI Recovery Companion", "Mental Wellness Application", "VR Therapy Experience", "Family Support Platform", "Recovery Monitoring System"],
   },
   {
     number: "04",
     icon: <Lightbulb aria-hidden="true" />,
-    title: "Wildcard Surge",
-    kicker: "OPEN INNOVATION",
-    description: "Bring the idea that refuses the obvious category. If it can spark a new future, it belongs here.",
+    title: "Innovation Challenge",
+    kicker: "BREAKTHROUGH FUTURES",
+    description: "Create breakthrough ideas and futuristic technologies that could transform the fight against substance abuse.",
+    examples: ["Smart Wellness Wearables", "AI Personal Mentor", "Smart City Solutions", "Blockchain-Based Tracking Systems", "Future Community Wellness Ecosystem"],
   },
 ];
 
@@ -199,13 +203,11 @@ export default function Home() {
 
           <div className="hero-content">
             <div className="hero-kicker reveal-up">
-              <span className="live-dot" aria-hidden="true" />
-              HACKFINITY / THEME: TOOFAN
+              ST. JOHN&apos;S SCHOOL, ANCHAL PRESENTS
             </div>
-            <h1 className="hero-title" aria-label="Hackfinity, TOOFAN theme">
-              <span className="hero-title-small">THE</span>
+            <h1 className="hero-title" aria-label="Hackfinity, TOOFAN">
               <span className="hero-title-main">HACKFINITY</span>
-              <span className="hero-title-sub">TOOFAN THEME</span>
+              <span className="hero-title-sub">TOOFAN</span>
             </h1>
             <p className="hero-intro">Hackfinity is where restless minds meet the force of TOOFAN: a storm of bold ideas, real questions, and the courage to build through the chaos.</p>
             <div className="hero-actions">
@@ -245,10 +247,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="marquee-band" aria-label="Hackfinity, TOOFAN theme, make it move">
+          <div className="marquee-band" aria-label="Hackfinity, TOOFAN, make it move">
             <div className="marquee-track">
-              <span>HACKFINITY <i>✦</i> MAKE IT MOVE <i>✦</i> TOOFAN THEME <i>✦</i> MAKE IT MATTER <i>✦</i> </span>
-              <span aria-hidden="true">HACKFINITY <i>✦</i> MAKE IT MOVE <i>✦</i> TOOFAN THEME <i>✦</i> MAKE IT MATTER <i>✦</i> </span>
+              <span>HACKFINITY <i>✦</i> MAKE IT MOVE <i>✦</i> TOOFAN <i>✦</i> MAKE IT MATTER <i>✦</i> </span>
+              <span aria-hidden="true">HACKFINITY <i>✦</i> MAKE IT MOVE <i>✦</i> TOOFAN <i>✦</i> MAKE IT MATTER <i>✦</i> </span>
             </div>
           </div>
         </section>
@@ -294,12 +296,13 @@ export default function Home() {
                   <h3>{challenge.title}</h3>
                   <div className="challenge-rule" aria-hidden="true"><span /><span /><span /></div>
                   <div className="challenge-copy"><span>BRIEF</span><p>{challenge.description}</p></div>
+                  <div className="challenge-examples"><span>SAMPLE PROJECTS</span><div>{challenge.examples.map((example) => <i key={example}>{example}</i>)}</div></div>
                 </div>
                 <div className="challenge-index" aria-hidden="true">{challenge.number}</div>
               </article>
             ))}
           </div>
-          <p className="challenge-disclaimer">The final challenge briefs and participation rules will be shared by the Hackfinity organisers.</p>
+          <p className="challenge-disclaimer">Sample projects are prompts for exploration. The final challenge briefs and participation rules will be shared by the Hackfinity organisers.</p>
         </section>
 
         <section id="venue" className="venue-section section-shell">
@@ -312,14 +315,14 @@ export default function Home() {
           </div>
           <div className="venue-content">
             <div className="section-label"><span>04</span> FIND THE GROUND</div>
+            <div className="official-host-mark official-host-mark-prominent">
+              <span>OFFICIAL HOST · ST. JOHN&apos;S SCHOOL, ANCHAL</span>
+              <img src="/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg" alt="St. John’s School, Anchal" />
+            </div>
             <p className="eyebrow">THE PLACE WHERE IT BEGINS</p>
             <h2>St. John&apos;s School,<br /><em>Anchal.</em></h2>
             <p>Our home base for a day of new signals, shared energy, and ideas set in motion. Full arrival and event-day information will be announced by the organising team.</p>
             <div className="venue-tag"><MapPin aria-hidden="true" /> MAR GREGORIOS CAMPUS, ANCHAL</div>
-            <div className="official-host-mark">
-              <span>OFFICIAL HOST</span>
-              <img src="/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg" alt="St. John’s School, Anchal" />
-            </div>
           </div>
         </section>
 
@@ -364,7 +367,7 @@ export default function Home() {
       </main>
 
       <footer className="site-footer">
-        <div className="footer-mark"><strong>HACK<span>FINITY</span></strong><small>TOOFAN THEME</small></div>
+        <div className="footer-mark"><strong>HACK<span>FINITY</span></strong><small>TOOFAN</small></div>
         <div className="footer-host">
           <span>HOSTED BY</span>
           <strong>ST. JOHN&apos;S SCHOOL, ANCHAL</strong>

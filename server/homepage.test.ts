@@ -8,7 +8,8 @@ describe("TOOFAN homepage", () => {
     const page = renderToStaticMarkup(createElement(Home));
 
     expect(page).toContain("HACKFINITY");
-    expect(page).toContain("TOOFAN THEME");
+    expect(page).toContain("TOOFAN");
+    expect(page).not.toContain("TOOFAN THEME");
     expect(page).toContain("09 OCT 2026");
     expect(page).toContain("ST. JOHN&#x27;S SCHOOL, ANCHAL");
     expect(page).toContain("The Storm");
@@ -16,10 +17,14 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("Venue");
     expect(page).toContain("Register");
     expect(page).toContain("FOUR CHALLENGES");
-    expect(page).toContain("Eye of the Storm");
-    expect(page).toContain("Signal Shift");
-    expect(page).toContain("Roots × Routes");
-    expect(page).toContain("Wildcard Surge");
+    expect(page).toContain("Awareness Challenge");
+    expect(page).toContain("Prevention Challenge");
+    expect(page).toContain("Recovery &amp; Rehabilitation");
+    expect(page).toContain("Innovation Challenge");
+    expect(page).toContain("AI Awareness Chatbot");
+    expect(page).toContain("Smart School Safety Dashboard");
+    expect(page).toContain("AI Recovery Companion");
+    expect(page).toContain("Smart Wellness Wearables");
   });
 
   it("presents host and partner identity while accurately describing the pre-Sheets registration state", () => {
