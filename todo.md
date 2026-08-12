@@ -39,15 +39,24 @@
 - [x] Add GitHub Pages static deployment configuration for the connected `Akashkrishna45/toofan-hackathon-build` repository.
 - [x] Validate the production frontend build for GitHub Pages and document the static-hosting limitation for secure Google Sheets submissions.
 - [x] Save the GitHub Pages configuration checkpoint.
-- [ ] Guide the user through enabling GitHub Pages in the connected repository settings.
+- [x] Guide the user through enabling GitHub Pages in the connected repository settings.
 - [x] Replace the Manus-only St. John’s asset route with a GitHub Pages-compatible public asset and verify the generated static output uses the repository base path.
 - [x] Update the GitHub Pages notes to document the bundled school-logo asset and retest the static build.
 - [x] Remove the conflicting explicit pnpm version from the GitHub Pages workflow and provide the corrected file for the connected repository.
 - [x] Validate the corrected workflow configuration and prepare the user instructions for committing and rerunning it in GitHub Actions.
-- [ ] Save the corrected workflow checkpoint and guide the user through applying the edit and rerunning GitHub Actions.
+- [x] Save the corrected workflow checkpoint and guide the user through applying the edit and rerunning GitHub Actions.
 - [x] Replace the unavailable `pnpm build:pages` workflow command with a direct Vite build that uses the GitHub Pages repository base path.
 - [x] Validate the direct Vite command against the generated static output, automated tests, and type checks.
-- [ ] Guide the user through committing the direct Vite workflow edit and rerunning the deployment workflow.
+- [x] Guide the user through committing the direct Vite workflow edit and rerunning the deployment workflow.
+- [x] Save the direct-Vite workflow correction checkpoint.
+- [x] Ensure the supplied St. John’s School image is committed locally and referenced through the correct GitHub Pages static path.
+- [x] Validate the actual school-image URL, direct-link fallback, and full mobile title in the generated static output and local responsive preview.
+- [ ] Synchronize the repaired school image, direct-link fallback, and mobile hero update to GitHub Pages, then verify the live deployment.
+- [x] Add a GitHub Pages direct-link fallback so the published site opens without a 404 or manual Home-button recovery.
+- [x] Correct the clipped mobile Hackfinity title and verify the complete hero composition at phone size.
+- [ ] Validate the repaired static output, actual school image, route fallback, and mobile hero after the actual image file is committed to GitHub.
+- [ ] Replace the broken live St. John’s image with a GitHub Pages-reliable host treatment and static-asset fallback.
+- [ ] Validate the repaired static output and guide the user through publishing the image fix on GitHub Pages.
 
 ## Reference notes
 

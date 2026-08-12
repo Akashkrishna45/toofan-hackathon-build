@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="0; url=/toofan-hackathon-build/" />
+    <title>Opening Hackfinity</title>
+    <script>
+      (function () {
+        var appBase = "/toofan-hackathon-build/";
+        var destination = new URL(appBase, window.location.origin);
+        destination.search = window.location.search;
+        destination.hash = window.location.hash;
+        window.location.replace(destination.toString());
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Opening Hackfinity…</p>
+  </body>
+</html>
