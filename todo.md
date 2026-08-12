@@ -25,6 +25,9 @@
 - [x] Replace generic Hackfinity copy with the organiser-provided 2026 platform narrative, inaugural-edition impact, and launchpad positioning.
 - [x] Add the organiser-provided TOOFAN – The Narco Hunt mission, 30-day challenge context, and approved technology focus.
 - [x] Make the supplied St. John’s School logo a clearly visible required host element in the heading and venue authority treatment.
+- [x] Retain the accepted HOWNWHY text lockup while the original partner artwork upload remains unavailable.
+- [x] Refine the St. John’s School logo display so it is visually correct and reliable in the header and venue authority treatment.
+- [x] Add additional performance-safe TOOFAN-inspired animations that respect reduced-motion preferences.
 
 ## Reference notes
 

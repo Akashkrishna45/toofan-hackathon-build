@@ -141,6 +141,29 @@ export default function Home() {
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof RegistrationInput, string>>>({});
   const [submitState, setSubmitState] = useState<"idle" | "prepared">("idle");
 
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      sections.forEach((section) => section.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.16 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -228,6 +251,7 @@ export default function Home() {
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-glow glow-one" aria-hidden="true" />
           <div className="hero-glow glow-two" aria-hidden="true" />
+          <div className="storm-beacons" aria-hidden="true"><span /><span /><span /><span /><span /></div>
           <div className="storm-system" aria-hidden="true">
             <div className="storm-orbit orbit-outer" />
             <div className="storm-orbit orbit-mid" />
@@ -273,7 +297,7 @@ export default function Home() {
 
         <section id="story" className="story-section section-shell">
           <div className="section-label"><span>01</span> ABOUT HACKFINITY 2026</div>
-          <div className="story-layout">
+          <div className="story-layout" data-reveal>
             <div className="story-title-wrap">
               <p className="eyebrow">ST. JOHN&apos;S SCHOOL&apos;S FLAGSHIP INNOVATION PLATFORM</p>
               <h2>A launchpad for<br /><em>future innovators.</em></h2>
@@ -294,7 +318,7 @@ export default function Home() {
         </section>
 
         <section id="experience" className="experience-section section-shell">
-          <div className="experience-heading">
+          <div className="experience-heading" data-reveal>
             <div className="section-label section-label-light"><span>02</span> IMPACT BEYOND THE COMPETITION</div>
             <h2>More than a<br /><em>hackathon.</em></h2>
             <p>The previous edition brought together hundreds of student innovators, researchers, creators, and future problem-solvers from more than 60 schools across South India.</p>
@@ -317,12 +341,12 @@ export default function Home() {
 
         <section id="toofan-mission" className="toofan-mission-section section-shell">
           <div className="toofan-mission-orbit" aria-hidden="true"><span /><span /><span /></div>
-          <div className="toofan-mission-heading">
+          <div className="toofan-mission-heading" data-reveal>
             <div className="section-label"><span>03</span> HACKFINITY 2026 THEME</div>
             <p className="eyebrow">A 30-DAY INNOVATION CHALLENGE</p>
             <h2>TOOFAN –<br /><em>The Narco Hunt.</em></h2>
           </div>
-          <div className="toofan-mission-copy">
+          <div className="toofan-mission-copy" data-reveal>
             <p>Substance abuse is one of society&apos;s most challenging issues and requires innovative thinking, research, technology, and collective action.</p>
             <p>TOOFAN challenges students to develop practical solutions that create awareness, strengthen prevention, support recovery and rehabilitation, and drive future innovation.</p>
           </div>
@@ -333,7 +357,7 @@ export default function Home() {
         </section>
 
         <section id="challenges" className="challenges-section section-shell">
-          <div className="challenges-heading">
+          <div className="challenges-heading" data-reveal>
             <div className="section-label"><span>04</span> FOUR CHALLENGES</div>
             <div>
               <p className="eyebrow">CHOOSE YOUR IMPACT</p>
@@ -368,7 +392,7 @@ export default function Home() {
             <div className="venue-pin"><MapPin /></div>
             <div className="venue-rings"><span /><span /><span /></div>
           </div>
-          <div className="venue-content">
+          <div className="venue-content" data-reveal>
             <div className="section-label"><span>05</span> FIND THE GROUND</div>
             <div className="official-host-mark official-host-mark-prominent">
               <span>OFFICIAL HOST · ST. JOHN&apos;S SCHOOL, ANCHAL</span>
@@ -382,14 +406,14 @@ export default function Home() {
         </section>
 
         <section id="register" className="register-section section-shell">
-          <div className="register-heading">
+          <div className="register-heading" data-reveal>
             <div className="section-label section-label-light"><span>06</span> HOLD YOUR PLACE</div>
             <h2>Ready when<br />the <em>storm</em> is.</h2>
             <p>Drop a signal below. The registration connection will be switched on with the organiser&apos;s Google Sheet before public submissions open.</p>
             <div className="registration-status"><span className="status-pulse" aria-hidden="true" /> REGISTRATION SYSTEM: PREPARING</div>
           </div>
 
-          <form className="registration-form" onSubmit={handleFormSubmit} noValidate>
+          <form className="registration-form" data-reveal onSubmit={handleFormSubmit} noValidate>
             <div className="form-field">
               <label htmlFor="name">YOUR NAME</label>
               <input id="name" value={formValues.name} onChange={(event) => updateField("name", event.target.value)} placeholder="How should we call you?" autoComplete="name" aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "name-error" : undefined} />

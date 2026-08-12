@@ -40,6 +40,7 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("POWERED BY");
     expect(page).toContain("HOWNWHY");
     expect(page).toContain('/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg?v=hackfinity-2026');
+    expect(page).toContain('header-school-logo');
     expect(page).toContain("No details are sent until the Google Sheets connection is activated.");
   });
 });
