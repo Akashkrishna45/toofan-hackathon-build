@@ -198,10 +198,10 @@ export default function Home() {
 
       <header className="site-header">
         <a className="school-lockup" href="#top" aria-label="Hackfinity home">
-          <span className="header-school-logo"><StJohnsLogo alt="" /></span>
+          <span className="school-host-mark" aria-hidden="true"><i /><i /><i /></span>
           <span className="school-lockup-copy">
-            <span className="school-lockup-top">HOSTED AT</span>
-            <span className="school-lockup-name">ST. JOHN&apos;S <em>ANCHAL</em></span>
+            <span className="school-lockup-top">HOSTED BY</span>
+            <span className="school-lockup-name">ST. JOHN&apos;S <em>SCHOOL · ANCHAL</em></span>
           </span>
         </a>
 
@@ -276,6 +276,12 @@ export default function Home() {
               <a className="button button-primary" href="#register">Enter Hackfinity <ArrowUpRight aria-hidden="true" /></a>
               <a className="button button-ghost" href="#story">Find the signal <ArrowDown aria-hidden="true" /></a>
             </div>
+          </div>
+
+          <div className="hero-brief-card" aria-label="Hackfinity 2026 challenge summary">
+            <span>2026 FIELD BRIEF</span>
+            <strong>30 DAYS · 4 CHALLENGES</strong>
+            <p>Building safer communities.</p>
           </div>
 
           <div className="hero-meta-panel">

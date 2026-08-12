@@ -2,7 +2,7 @@
 
 - [x] Create the TOOFAN landing-page information architecture with 9 October 2026 and St. John’s School, Anchal details.
 - [x] Establish the storm-inspired, accessible visual system with St. John’s red and HOWNWHY gold accents.
-- [ ] Add preserved-aspect-ratio host and partner logo placements using the supplied St. John’s and HOWNWHY marks; the St. John’s mark now has a verified resilient loader, while the HOWNWHY image remains pending because its upload has not reached the workspace.
+- [x] Add preserved-aspect-ratio host and partner logo placements using the supplied St. John’s and HOWNWHY marks; the St. John’s mark uses a verified resilient loader and the organiser-approved HOWNWHY text lockup is retained.
 - [x] Build a performant 3D-inspired hero, responsive navigation, and reduced-motion alternative.
 - [x] Create editable tracks, schedule, venue, FAQ, and contact sections without inventing unconfirmed event facts.
 - [x] Implement and validate a mobile-first registration form with useful confirmation and error states.
@@ -11,10 +11,10 @@
 - [x] Write automated tests for the registration validation and page-critical behaviors.
 - [x] Add a homepage rendering test that protects the key event details, navigation labels, host and partner identity, and the truthful pre-Sheets registration state.
 - [x] Verify the site at mobile and desktop breakpoints.
-- [ ] Create a project checkpoint after the HOWNWHY mark is available or the organizer approves the text lockup fallback.
+- [x] Create a project checkpoint after the HOWNWHY mark is available or the organizer approves the text lockup fallback.
 - [x] Rename the event presentation from TOOFAN Hackathon to Hackfinity and use TOOFAN as the theme throughout the site.
 - [x] Expand the storm-system visuals and interactive depth so the Hackfinity experience feels more dynamic while remaining mobile-safe and reduced-motion aware.
-- [ ] Integrate the recovered HOWNWHY artwork with a protected static-asset URL and correct the St. John’s / HOWNWHY logo placements.
+- [x] Integrate the corrected St. John’s mark and retain the organiser-approved HOWNWHY text lockup while the original artwork upload remains unavailable.
 - [x] Retest the renamed Hackfinity experience at desktop and mobile breakpoints.
 - [x] Add a Four Challenges section with four clear, mobile-friendly TOOFAN-theme challenge cards and organiser-editable challenge details.
 - [x] Remove the word “theme” from the Hackfinity heading hierarchy and present TOOFAN as the supporting event word.
@@ -28,6 +28,10 @@
 - [x] Retain the accepted HOWNWHY text lockup while the original partner artwork upload remains unavailable.
 - [x] Refine the St. John’s School logo display so it is visually correct and reliable in the header and venue authority treatment.
 - [x] Add additional performance-safe TOOFAN-inspired animations that respect reduced-motion preferences.
+- [x] Remove the oversized St. John’s header logo treatment and replace it with a compact, visually balanced host identifier.
+- [x] Add a small complementary hero detail to preserve visual interest after simplifying the header.
+- [x] Retest the refined landing page at desktop and mobile breakpoints.
+- [ ] Save a checkpoint for the refined compact-header landing page.
 
 ## Reference notes
 
