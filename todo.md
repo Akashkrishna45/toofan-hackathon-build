@@ -45,6 +45,9 @@
 - [x] Remove the conflicting explicit pnpm version from the GitHub Pages workflow and provide the corrected file for the connected repository.
 - [x] Validate the corrected workflow configuration and prepare the user instructions for committing and rerunning it in GitHub Actions.
 - [ ] Save the corrected workflow checkpoint and guide the user through applying the edit and rerunning GitHub Actions.
+- [x] Replace the unavailable `pnpm build:pages` workflow command with a direct Vite build that uses the GitHub Pages repository base path.
+- [x] Validate the direct Vite command against the generated static output, automated tests, and type checks.
+- [ ] Guide the user through committing the direct Vite workflow edit and rerunning the deployment workflow.
 
 ## Reference notes
 
