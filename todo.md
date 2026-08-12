@@ -2,7 +2,7 @@
 
 - [x] Create the TOOFAN landing-page information architecture with 9 October 2026 and St. John’s School, Anchal details.
 - [x] Establish the storm-inspired, accessible visual system with St. John’s red and HOWNWHY gold accents.
-- [ ] Add preserved-aspect-ratio host and partner logo placements using the supplied St. John’s and HOWNWHY marks; the St. John’s mark is integrated, while the HOWNWHY image remains pending because its upload has not reached the workspace.
+- [ ] Add preserved-aspect-ratio host and partner logo placements using the supplied St. John’s and HOWNWHY marks; the St. John’s mark now has a verified resilient loader, while the HOWNWHY image remains pending because its upload has not reached the workspace.
 - [x] Build a performant 3D-inspired hero, responsive navigation, and reduced-motion alternative.
 - [x] Create editable tracks, schedule, venue, FAQ, and contact sections without inventing unconfirmed event facts.
 - [x] Implement and validate a mobile-first registration form with useful confirmation and error states.

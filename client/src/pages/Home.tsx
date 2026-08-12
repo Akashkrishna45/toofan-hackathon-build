@@ -1,4 +1,4 @@
-import React, { type FormEvent, useState } from "react";
+import React, { type FormEvent, useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -62,6 +62,36 @@ const impactCards = [
 ];
 
 const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biotechnology", "Design Thinking", "Digital Technologies", "Entrepreneurship"];
+const stJohnsLogoUrl = "/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg?v=hackfinity-2026";
+
+function StJohnsLogo({ alt }: { alt: string }) {
+  const [source, setSource] = useState(stJohnsLogoUrl);
+
+  useEffect(() => {
+    let objectUrl: string | undefined;
+    const controller = new AbortController();
+
+    fetch(stJohnsLogoUrl, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Unable to load the St. John’s School logo.");
+        return response.blob();
+      })
+      .then((logoBlob) => {
+        objectUrl = URL.createObjectURL(logoBlob);
+        setSource(objectUrl);
+      })
+      .catch(() => {
+        // The protected route remains as a safe fallback if a visitor is temporarily offline.
+      });
+
+    return () => {
+      controller.abort();
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, []);
+
+  return <img src={source} alt={alt} />;
+}
 
 const challengeCards = [
   {
@@ -145,7 +175,7 @@ export default function Home() {
 
       <header className="site-header">
         <a className="school-lockup" href="#top" aria-label="Hackfinity home">
-          <span className="header-school-logo"><img src="/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg" alt="" /></span>
+          <span className="header-school-logo"><StJohnsLogo alt="" /></span>
           <span className="school-lockup-copy">
             <span className="school-lockup-top">HOSTED AT</span>
             <span className="school-lockup-name">ST. JOHN&apos;S <em>ANCHAL</em></span>
@@ -342,7 +372,7 @@ export default function Home() {
             <div className="section-label"><span>05</span> FIND THE GROUND</div>
             <div className="official-host-mark official-host-mark-prominent">
               <span>OFFICIAL HOST · ST. JOHN&apos;S SCHOOL, ANCHAL</span>
-              <img src="/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg" alt="St. John’s School, Anchal" />
+              <StJohnsLogo alt="St. John’s School, Anchal" />
             </div>
             <p className="eyebrow">THE PLACE WHERE IT BEGINS</p>
             <h2>St. John&apos;s School,<br /><em>Anchal.</em></h2>
