@@ -60,6 +60,8 @@
 - [x] Configure the client router to respect Vite’s GitHub Pages repository base path so the deployed root route does not render the internal 404 screen.
 - [ ] Investigate the user-reported published root-route 404 that still appears before pressing Go Home, including cache and stale-bundle behavior.
 - [ ] Ensure the GitHub Pages root URL renders Hackfinity directly even when an earlier browser bundle is cached, then re-verify with a fresh public request.
+- [ ] Review and implement the user’s preferred public URL option so the live Hackfinity address does not include the personal GitHub account name.
+- [ ] Verify `Hackfinity-ST-JOHN-S` can receive the Hackfinity repository, prepare the GitHub Pages base-path migration, and transfer ownership only after explicit user confirmation.
 
 ## Reference notes
 

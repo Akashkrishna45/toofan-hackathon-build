@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="0; url=/toofan-hackathon-build/" />
     <title>Opening Hackfinity</title>
     <script>
       (function () {
-        var appBase = "/toofan-hackathon-build/";
+        var pathSegments = window.location.pathname.split("/").filter(Boolean);
+        var appBase = pathSegments.length ? "/" + pathSegments[0] + "/" : "/";
         var destination = new URL(appBase, window.location.origin);
         destination.search = window.location.search;
         destination.hash = window.location.hash;
