@@ -12,6 +12,11 @@
 - [x] Add a homepage rendering test that protects the key event details, navigation labels, host and partner identity, and the truthful pre-Sheets registration state.
 - [x] Verify the site at mobile and desktop breakpoints.
 - [ ] Create a project checkpoint after the HOWNWHY mark is available or the organizer approves the text lockup fallback.
+- [x] Rename the event presentation from TOOFAN Hackathon to Hackfinity and use TOOFAN as the theme throughout the site.
+- [x] Expand the storm-system visuals and interactive depth so the Hackfinity experience feels more dynamic while remaining mobile-safe and reduced-motion aware.
+- [ ] Integrate the recovered HOWNWHY artwork with a protected static-asset URL and correct the St. John’s / HOWNWHY logo placements.
+- [x] Retest the renamed Hackfinity experience at desktop and mobile breakpoints.
+- [x] Add a Four Challenges section with four clear, mobile-friendly TOOFAN-theme challenge cards and organiser-editable challenge details.
 
 ## Reference notes
 

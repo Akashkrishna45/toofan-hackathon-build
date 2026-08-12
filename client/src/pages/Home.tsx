@@ -2,11 +2,15 @@ import React, { type FormEvent, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
+  Bot,
   CalendarDays,
   Check,
   ChevronDown,
   Compass,
+  Earth,
+  HeartHandshake,
   Layers3,
+  Lightbulb,
   MapPin,
   Menu,
   Send,
@@ -25,6 +29,7 @@ const eventDetails = {
 const navItems = [
   { label: "The Storm", href: "#story" },
   { label: "Experience", href: "#experience" },
+  { label: "Challenges", href: "#challenges" },
   { label: "Venue", href: "#venue" },
   { label: "Register", href: "#register" },
 ];
@@ -47,6 +52,37 @@ const experienceCards = [
     icon: <Compass aria-hidden="true" />,
     title: "Surge",
     description: "Step into the showcase with a story, a spark, and the confidence to send it into the world.",
+  },
+];
+
+const challengeCards = [
+  {
+    number: "01",
+    icon: <Earth aria-hidden="true" />,
+    title: "Eye of the Storm",
+    kicker: "RESILIENT TOMORROWS",
+    description: "Design a response for the moments communities need ideas to move fast, stay clear, and hold strong.",
+  },
+  {
+    number: "02",
+    icon: <Bot aria-hidden="true" />,
+    title: "Signal Shift",
+    kicker: "HUMAN-CENTRED TECH",
+    description: "Use technology to make an everyday process more useful, more accessible, or more humane.",
+  },
+  {
+    number: "03",
+    icon: <HeartHandshake aria-hidden="true" />,
+    title: "Roots × Routes",
+    kicker: "CULTURE IN MOTION",
+    description: "Build a bridge between local stories, shared knowledge, and the tools that shape what comes next.",
+  },
+  {
+    number: "04",
+    icon: <Lightbulb aria-hidden="true" />,
+    title: "Wildcard Surge",
+    kicker: "OPEN INNOVATION",
+    description: "Bring the idea that refuses the obvious category. If it can spark a new future, it belongs here.",
   },
 ];
 
@@ -96,7 +132,7 @@ export default function Home() {
       <a className="skip-link" href="#main-content">Skip to main content</a>
 
       <header className="site-header">
-        <a className="school-lockup" href="#top" aria-label="TOOFAN home">
+        <a className="school-lockup" href="#top" aria-label="Hackfinity home">
           <span className="school-seal" aria-hidden="true">SJ</span>
           <span className="school-lockup-copy">
             <span className="school-lockup-top">HOSTED AT</span>
@@ -164,16 +200,16 @@ export default function Home() {
           <div className="hero-content">
             <div className="hero-kicker reveal-up">
               <span className="live-dot" aria-hidden="true" />
-              THE FIRST SIGNAL IS HERE
+              HACKFINITY / THEME: TOOFAN
             </div>
-            <h1 className="hero-title" aria-label="TOOFAN">
+            <h1 className="hero-title" aria-label="Hackfinity, TOOFAN theme">
               <span className="hero-title-small">THE</span>
-              <span className="hero-title-main">TOOFAN</span>
-              <span className="hero-title-sub">HACKATHON</span>
+              <span className="hero-title-main">HACKFINITY</span>
+              <span className="hero-title-sub">TOOFAN THEME</span>
             </h1>
-            <p className="hero-intro">A gathering for restless minds, untamed ideas, and the courage to build through the chaos.</p>
+            <p className="hero-intro">Hackfinity is where restless minds meet the force of TOOFAN: a storm of bold ideas, real questions, and the courage to build through the chaos.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#register">Enter the storm <ArrowUpRight aria-hidden="true" /></a>
+              <a className="button button-primary" href="#register">Enter Hackfinity <ArrowUpRight aria-hidden="true" /></a>
               <a className="button button-ghost" href="#story">Find the signal <ArrowDown aria-hidden="true" /></a>
             </div>
           </div>
@@ -190,7 +226,7 @@ export default function Home() {
             </div>
           </div>
 
-          <a className="scroll-cue" href="#story" aria-label="Scroll to discover TOOFAN">
+          <a className="scroll-cue" href="#story" aria-label="Scroll to discover Hackfinity">
             <span>SCROLL TO DISCOVER</span><ChevronDown aria-hidden="true" />
           </a>
         </section>
@@ -203,16 +239,16 @@ export default function Home() {
               <h2>Not every <em>storm</em> is meant to be escaped.</h2>
             </div>
             <div className="story-copy">
-              <p>TOOFAN is a space for the moment when an idea stops being a thought and becomes a force. It is for makers who are ready to follow the static, test the unknown, and build something that moves.</p>
+              <p>TOOFAN is the current that runs through Hackfinity: the moment when an idea stops being a thought and becomes a force. It is for makers ready to follow the static, test the unknown, and build something that moves.</p>
               <p>Come as you are. Leave with a signal worth carrying forward.</p>
               <a className="text-link" href="#experience">See what is waiting <ArrowUpRight aria-hidden="true" /></a>
             </div>
           </div>
 
-          <div className="marquee-band" aria-label="TOOFAN Hackathon, make it move">
+          <div className="marquee-band" aria-label="Hackfinity, TOOFAN theme, make it move">
             <div className="marquee-track">
-              <span>MAKE IT MOVE <i>✦</i> MAKE IT MATTER <i>✦</i> MAKE IT TOOFAN <i>✦</i> </span>
-              <span aria-hidden="true">MAKE IT MOVE <i>✦</i> MAKE IT MATTER <i>✦</i> MAKE IT TOOFAN <i>✦</i> </span>
+              <span>HACKFINITY <i>✦</i> MAKE IT MOVE <i>✦</i> TOOFAN THEME <i>✦</i> MAKE IT MATTER <i>✦</i> </span>
+              <span aria-hidden="true">HACKFINITY <i>✦</i> MAKE IT MOVE <i>✦</i> TOOFAN THEME <i>✦</i> MAKE IT MATTER <i>✦</i> </span>
             </div>
           </div>
         </section>
@@ -239,6 +275,33 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="challenges" className="challenges-section section-shell">
+          <div className="challenges-heading">
+            <div className="section-label"><span>03</span> FOUR CHALLENGES</div>
+            <div>
+              <p className="eyebrow">CHOOSE YOUR CURRENT</p>
+              <h2>Four ways to<br /><em>move the map.</em></h2>
+            </div>
+            <p>Each challenge is a launch point, not a limit. The organising team can refine the detailed brief, but every direction begins with a real-world question worth meeting head-on.</p>
+          </div>
+          <div className="challenge-grid">
+            {challengeCards.map((challenge) => (
+              <article className="challenge-card" key={challenge.number}>
+                <div className="challenge-card-glow" aria-hidden="true" />
+                <div className="challenge-card-top"><span>CHALLENGE {challenge.number}</span>{challenge.icon}</div>
+                <div className="challenge-card-body">
+                  <p>{challenge.kicker}</p>
+                  <h3>{challenge.title}</h3>
+                  <div className="challenge-rule" aria-hidden="true"><span /><span /><span /></div>
+                  <div className="challenge-copy"><span>BRIEF</span><p>{challenge.description}</p></div>
+                </div>
+                <div className="challenge-index" aria-hidden="true">{challenge.number}</div>
+              </article>
+            ))}
+          </div>
+          <p className="challenge-disclaimer">The final challenge briefs and participation rules will be shared by the Hackfinity organisers.</p>
+        </section>
+
         <section id="venue" className="venue-section section-shell">
           <div className="venue-graphic" aria-hidden="true">
             <div className="venue-sun" />
@@ -248,7 +311,7 @@ export default function Home() {
             <div className="venue-rings"><span /><span /><span /></div>
           </div>
           <div className="venue-content">
-            <div className="section-label"><span>03</span> FIND THE GROUND</div>
+            <div className="section-label"><span>04</span> FIND THE GROUND</div>
             <p className="eyebrow">THE PLACE WHERE IT BEGINS</p>
             <h2>St. John&apos;s School,<br /><em>Anchal.</em></h2>
             <p>Our home base for a day of new signals, shared energy, and ideas set in motion. Full arrival and event-day information will be announced by the organising team.</p>
@@ -262,7 +325,7 @@ export default function Home() {
 
         <section id="register" className="register-section section-shell">
           <div className="register-heading">
-            <div className="section-label section-label-light"><span>04</span> HOLD YOUR PLACE</div>
+            <div className="section-label section-label-light"><span>05</span> HOLD YOUR PLACE</div>
             <h2>Ready when<br />the <em>storm</em> is.</h2>
             <p>Drop a signal below. The registration connection will be switched on with the organiser&apos;s Google Sheet before public submissions open.</p>
             <div className="registration-status"><span className="status-pulse" aria-hidden="true" /> REGISTRATION SYSTEM: PREPARING</div>
@@ -301,14 +364,14 @@ export default function Home() {
       </main>
 
       <footer className="site-footer">
-        <div className="footer-mark">T<span>O</span>OFAN</div>
+        <div className="footer-mark"><strong>HACK<span>FINITY</span></strong><small>TOOFAN THEME</small></div>
         <div className="footer-host">
           <span>HOSTED BY</span>
           <strong>ST. JOHN&apos;S SCHOOL, ANCHAL</strong>
         </div>
         <div className="footer-powered">
           <span>POWERED BY</span>
-          <strong aria-label="HOWNWHY" role="img">HOW<span aria-hidden="true">N</span>WHY</strong>
+          <strong className="hownwhy-wordmark" aria-label="HOWNWHY" role="img"><span>HOW</span><i aria-hidden="true">N</i><span>WHY</span></strong>
         </div>
         <div className="footer-year">OCTOBER 2026</div>
       </footer>
