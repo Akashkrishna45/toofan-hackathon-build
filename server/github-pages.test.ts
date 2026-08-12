@@ -9,4 +9,12 @@ describe("GitHub Pages fallback", () => {
     expect(fallback).toContain('var appBase = "/toofan-hackathon-build/"');
     expect(fallback).toContain('url=/toofan-hackathon-build/');
   });
+
+  it("mounts the client router at Vite's repository base path", () => {
+    const app = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
+
+    expect(app).toContain('Router as WouterRouter');
+    expect(app).toContain('const routerBase = import.meta.env.BASE_URL.replace(/\\/$/, "") || "/";');
+    expect(app).toContain('<WouterRouter base={routerBase}>');
+  });
 });
