@@ -17,4 +17,11 @@ describe("GitHub Pages fallback", () => {
     expect(app).toContain('const routerBase = import.meta.env.BASE_URL.replace(/\\/$/, "") || "/";');
     expect(app).toContain('<WouterRouter base={routerBase}>');
   });
+
+  it("reloads the GitHub Pages base if a stale client bundle reaches the internal 404 route", () => {
+    const notFound = readFileSync(resolve(process.cwd(), "client/src/pages/NotFound.tsx"), "utf8");
+
+    expect(notFound).toContain('window.location.hostname.endsWith(".github.io")');
+    expect(notFound).toContain("window.location.replace(import.meta.env.BASE_URL)");
+  });
 });

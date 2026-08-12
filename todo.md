@@ -58,6 +58,8 @@
 - [x] Replace the broken live St. John’s image with a GitHub Pages-reliable host treatment and static-asset fallback.
 - [x] Validate the repaired static output and guide the user through publishing the image fix on GitHub Pages.
 - [x] Configure the client router to respect Vite’s GitHub Pages repository base path so the deployed root route does not render the internal 404 screen.
+- [ ] Investigate the user-reported published root-route 404 that still appears before pressing Go Home, including cache and stale-bundle behavior.
+- [ ] Ensure the GitHub Pages root URL renders Hackfinity directly even when an earlier browser bundle is cached, then re-verify with a fresh public request.
 
 ## Reference notes
 
