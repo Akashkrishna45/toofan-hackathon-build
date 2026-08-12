@@ -150,10 +150,15 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+const isGitHubPagesBuild = process.env.GITHUB_PAGES === "true";
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/").at(-1) ?? "toofan-hackathon-build";
+const plugins = isGitHubPagesBuild
+  ? [react(), tailwindcss()]
+  : [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
 export default defineConfig({
   plugins,
+  base: isGitHubPagesBuild ? `/${repositoryName}/` : "/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),

@@ -39,7 +39,7 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("OFFICIAL HOST");
     expect(page).toContain("POWERED BY");
     expect(page).toContain("HOWNWHY");
-    expect(page).toContain('/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg?v=hackfinity-2026');
+    expect(page).toContain('/assets/st-johns-school.jpg');
     expect(page).toContain('school-host-mark');
     expect(page).toContain('30 DAYS · 4 CHALLENGES');
     expect(page).toContain("Nothing is sent until the secure Google Sheets connection is activated.");

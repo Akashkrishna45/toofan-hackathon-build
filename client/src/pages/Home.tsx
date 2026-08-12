@@ -62,7 +62,7 @@ const impactCards = [
 ];
 
 const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biotechnology", "Design Thinking", "Digital Technologies", "Entrepreneurship"];
-const stJohnsLogoUrl = "/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg?v=hackfinity-2026";
+const stJohnsLogoUrl = `${import.meta.env.BASE_URL}assets/st-johns-school.jpg`;
 
 function StJohnsLogo({ alt }: { alt: string }) {
   const [source, setSource] = useState(stJohnsLogoUrl);
