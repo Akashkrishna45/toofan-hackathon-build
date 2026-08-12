@@ -6,8 +6,19 @@ describe("TOOFAN registration validation", () => {
     const result = registrationSchema.safeParse({
       name: "Anjali Mathew",
       email: "anjali@example.com",
+      phone: "+91 98765 43210",
+      grade: "Class XI",
       school: "St. John's School, Anchal",
+      district: "Kollam",
+      guardianName: "Anu Mathew",
+      guardianPhone: "+91 98765 43211",
       team: "Storm Crafters",
+      teamSize: "4",
+      registrationRole: "Team Lead",
+      category: "Awareness Challenge",
+      skills: ["Artificial Intelligence", "Design Thinking"],
+      projectInterest: "An interactive campaign that helps students understand the risks of substance abuse.",
+      consent: true,
     });
 
     expect(result.success).toBe(true);
@@ -17,7 +28,37 @@ describe("TOOFAN registration validation", () => {
     const result = registrationSchema.safeParse({
       name: "A",
       email: "not-an-email",
+      phone: "123",
+      grade: "",
       school: "",
+      district: "",
+      guardianName: "",
+      guardianPhone: "123",
+      teamSize: "7",
+      registrationRole: "",
+      category: "",
+      skills: [],
+      consent: false,
+    });
+
+    expect(result.success).toBe(false);
+  });
+
+  it("requires an explicit consent confirmation", () => {
+    const result = registrationSchema.safeParse({
+      name: "Anjali Mathew",
+      email: "anjali@example.com",
+      phone: "+91 98765 43210",
+      grade: "Class XI",
+      school: "St. John's School, Anchal",
+      district: "Kollam",
+      guardianName: "Anu Mathew",
+      guardianPhone: "+91 98765 43211",
+      teamSize: "1",
+      registrationRole: "Individual Participant",
+      category: "Innovation Challenge",
+      skills: ["Engineering"],
+      consent: false,
     });
 
     expect(result.success).toBe(false);

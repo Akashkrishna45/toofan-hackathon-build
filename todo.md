@@ -31,7 +31,11 @@
 - [x] Remove the oversized St. John’s header logo treatment and replace it with a compact, visually balanced host identifier.
 - [x] Add a small complementary hero detail to preserve visual interest after simplifying the header.
 - [x] Retest the refined landing page at desktop and mobile breakpoints.
-- [ ] Save a checkpoint for the refined compact-header landing page.
+- [x] Save a checkpoint for the refined compact-header landing page.
+- [x] Expand registration to collect student, school, guardian-contact, team, category, skills, and project-interest information with privacy-conscious validation.
+- [x] Add clear consent language and a helpful organiser-ready confirmation state without sending data until Google Sheets is connected.
+- [x] Test the expanded registration form at desktop and mobile breakpoints.
+- [ ] Save a checkpoint for the expanded student registration flow.
 
 ## Reference notes
 

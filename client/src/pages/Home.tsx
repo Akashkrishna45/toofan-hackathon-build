@@ -19,7 +19,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { registrationSchema, type RegistrationInput } from "@shared/registration";
+import { registrationCategories, registrationSchema, studentSkillOptions, type RegistrationInput } from "@shared/registration";
 
 const eventDetails = {
   date: "09 OCT 2026",
@@ -131,8 +131,19 @@ const challengeCards = [
 const registrationDefaults: RegistrationInput = {
   name: "",
   email: "",
+  phone: "",
+  grade: "",
   school: "",
+  district: "",
+  guardianName: "",
+  guardianPhone: "",
   team: "",
+  teamSize: "1",
+  registrationRole: "Individual Participant",
+  category: "Awareness Challenge",
+  skills: [],
+  projectInterest: "",
+  consent: false,
 };
 
 export default function Home() {
@@ -175,8 +186,19 @@ export default function Home() {
       setFieldErrors({
         name: errors.name?.[0],
         email: errors.email?.[0],
+        phone: errors.phone?.[0],
+        grade: errors.grade?.[0],
         school: errors.school?.[0],
+        district: errors.district?.[0],
+        guardianName: errors.guardianName?.[0],
+        guardianPhone: errors.guardianPhone?.[0],
         team: errors.team?.[0],
+        teamSize: errors.teamSize?.[0],
+        registrationRole: errors.registrationRole?.[0],
+        category: errors.category?.[0],
+        skills: errors.skills?.[0],
+        projectInterest: errors.projectInterest?.[0],
+        consent: errors.consent?.[0],
       });
       setSubmitState("idle");
       return;
@@ -186,9 +208,20 @@ export default function Home() {
     setSubmitState("prepared");
   };
 
-  const updateField = (field: keyof RegistrationInput, value: string) => {
+  const updateField = <Field extends keyof RegistrationInput>(field: Field, value: RegistrationInput[Field]) => {
     setFormValues((current) => ({ ...current, [field]: value }));
     setFieldErrors((current) => ({ ...current, [field]: undefined }));
+    setSubmitState("idle");
+  };
+
+  const toggleSkill = (skill: typeof studentSkillOptions[number]) => {
+    setFormValues((current) => ({
+      ...current,
+      skills: current.skills.includes(skill)
+        ? current.skills.filter((currentSkill) => currentSkill !== skill)
+        : [...current.skills, skill],
+    }));
+    setFieldErrors((current) => ({ ...current, skills: undefined }));
     setSubmitState("idle");
   };
 
@@ -420,32 +453,107 @@ export default function Home() {
           </div>
 
           <form className="registration-form" data-reveal onSubmit={handleFormSubmit} noValidate>
-            <div className="form-field">
-              <label htmlFor="name">YOUR NAME</label>
-              <input id="name" value={formValues.name} onChange={(event) => updateField("name", event.target.value)} placeholder="How should we call you?" autoComplete="name" aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "name-error" : undefined} />
-              {fieldErrors.name && <span id="name-error" className="field-error">{fieldErrors.name}</span>}
+            <div className="form-section-heading"><span>01</span> STUDENT PROFILE</div>
+            <div className="form-grid">
+              <div className="form-field">
+                <label htmlFor="name">FULL NAME</label>
+                <input id="name" value={formValues.name} onChange={(event) => updateField("name", event.target.value)} placeholder="How should we call you?" autoComplete="name" aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "name-error" : undefined} />
+                {fieldErrors.name && <span id="name-error" className="field-error">{fieldErrors.name}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="email">EMAIL ADDRESS</label>
+                <input id="email" type="email" value={formValues.email} onChange={(event) => updateField("email", event.target.value)} placeholder="you@example.com" autoComplete="email" aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "email-error" : undefined} />
+                {fieldErrors.email && <span id="email-error" className="field-error">{fieldErrors.email}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="phone">STUDENT CONTACT</label>
+                <input id="phone" type="tel" value={formValues.phone} onChange={(event) => updateField("phone", event.target.value)} placeholder="Your mobile number" autoComplete="tel" aria-invalid={Boolean(fieldErrors.phone)} aria-describedby={fieldErrors.phone ? "phone-error" : undefined} />
+                {fieldErrors.phone && <span id="phone-error" className="field-error">{fieldErrors.phone}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="grade">CLASS / GRADE</label>
+                <input id="grade" value={formValues.grade} onChange={(event) => updateField("grade", event.target.value)} placeholder="For example, Class XI" aria-invalid={Boolean(fieldErrors.grade)} aria-describedby={fieldErrors.grade ? "grade-error" : undefined} />
+                {fieldErrors.grade && <span id="grade-error" className="field-error">{fieldErrors.grade}</span>}
+              </div>
             </div>
-            <div className="form-field">
-              <label htmlFor="email">EMAIL ADDRESS</label>
-              <input id="email" type="email" value={formValues.email} onChange={(event) => updateField("email", event.target.value)} placeholder="you@example.com" autoComplete="email" aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "email-error" : undefined} />
-              {fieldErrors.email && <span id="email-error" className="field-error">{fieldErrors.email}</span>}
+
+            <div className="form-section-heading"><span>02</span> SCHOOL &amp; SAFETY CONTACT</div>
+            <div className="form-grid">
+              <div className="form-field form-field-wide">
+                <label htmlFor="school">SCHOOL NAME</label>
+                <input id="school" value={formValues.school} onChange={(event) => updateField("school", event.target.value)} placeholder="Where are you building from?" aria-invalid={Boolean(fieldErrors.school)} aria-describedby={fieldErrors.school ? "school-error" : undefined} />
+                {fieldErrors.school && <span id="school-error" className="field-error">{fieldErrors.school}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="district">DISTRICT / CITY</label>
+                <input id="district" value={formValues.district} onChange={(event) => updateField("district", event.target.value)} placeholder="Your district or city" aria-invalid={Boolean(fieldErrors.district)} aria-describedby={fieldErrors.district ? "district-error" : undefined} />
+                {fieldErrors.district && <span id="district-error" className="field-error">{fieldErrors.district}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="guardianName">PARENT / GUARDIAN NAME</label>
+                <input id="guardianName" value={formValues.guardianName} onChange={(event) => updateField("guardianName", event.target.value)} placeholder="For event communication" aria-invalid={Boolean(fieldErrors.guardianName)} aria-describedby={fieldErrors.guardianName ? "guardian-name-error" : undefined} />
+                {fieldErrors.guardianName && <span id="guardian-name-error" className="field-error">{fieldErrors.guardianName}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="guardianPhone">PARENT / GUARDIAN CONTACT</label>
+                <input id="guardianPhone" type="tel" value={formValues.guardianPhone} onChange={(event) => updateField("guardianPhone", event.target.value)} placeholder="A reachable contact number" autoComplete="tel" aria-invalid={Boolean(fieldErrors.guardianPhone)} aria-describedby={fieldErrors.guardianPhone ? "guardian-phone-error" : undefined} />
+                {fieldErrors.guardianPhone && <span id="guardian-phone-error" className="field-error">{fieldErrors.guardianPhone}</span>}
+              </div>
             </div>
-            <div className="form-field">
-              <label htmlFor="school">SCHOOL / ORGANISATION</label>
-              <input id="school" value={formValues.school} onChange={(event) => updateField("school", event.target.value)} placeholder="Where are you building from?" aria-invalid={Boolean(fieldErrors.school)} aria-describedby={fieldErrors.school ? "school-error" : undefined} />
-              {fieldErrors.school && <span id="school-error" className="field-error">{fieldErrors.school}</span>}
+
+            <div className="form-section-heading"><span>03</span> YOUR HACKFINITY PATH</div>
+            <div className="form-grid">
+              <div className="form-field">
+                <label htmlFor="team">TEAM NAME <span>OPTIONAL</span></label>
+                <input id="team" value={formValues.team} onChange={(event) => updateField("team", event.target.value)} placeholder="Name your crew" aria-invalid={Boolean(fieldErrors.team)} aria-describedby={fieldErrors.team ? "team-error" : undefined} />
+                {fieldErrors.team && <span id="team-error" className="field-error">{fieldErrors.team}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="teamSize">TEAM SIZE</label>
+                <select id="teamSize" value={formValues.teamSize} onChange={(event) => updateField("teamSize", event.target.value as RegistrationInput["teamSize"])} aria-invalid={Boolean(fieldErrors.teamSize)} aria-describedby={fieldErrors.teamSize ? "team-size-error" : undefined}>
+                  {["1", "2", "3", "4", "5", "6"].map((size) => <option key={size} value={size}>{size} participant{size === "1" ? "" : "s"}</option>)}
+                </select>
+                {fieldErrors.teamSize && <span id="team-size-error" className="field-error">{fieldErrors.teamSize}</span>}
+              </div>
+              <div className="form-field">
+                <label htmlFor="registrationRole">REGISTRATION ROLE</label>
+                <select id="registrationRole" value={formValues.registrationRole} onChange={(event) => updateField("registrationRole", event.target.value as RegistrationInput["registrationRole"])} aria-invalid={Boolean(fieldErrors.registrationRole)} aria-describedby={fieldErrors.registrationRole ? "role-error" : undefined}>
+                  {(["Individual Participant", "Team Lead", "Team Member"] as const).map((role) => <option key={role} value={role}>{role}</option>)}
+                </select>
+                {fieldErrors.registrationRole && <span id="role-error" className="field-error">{fieldErrors.registrationRole}</span>}
+              </div>
+              <div className="form-field form-field-wide">
+                <label htmlFor="category">PREFERRED CHALLENGE CATEGORY</label>
+                <select id="category" value={formValues.category} onChange={(event) => updateField("category", event.target.value as RegistrationInput["category"])} aria-invalid={Boolean(fieldErrors.category)} aria-describedby={fieldErrors.category ? "category-error" : undefined}>
+                  {registrationCategories.map((category) => <option key={category} value={category}>{category}</option>)}
+                </select>
+                {fieldErrors.category && <span id="category-error" className="field-error">{fieldErrors.category}</span>}
+              </div>
             </div>
-            <div className="form-field">
-              <label htmlFor="team">TEAM NAME <span>OPTIONAL</span></label>
-              <input id="team" value={formValues.team} onChange={(event) => updateField("team", event.target.value)} placeholder="Name your crew" aria-invalid={Boolean(fieldErrors.team)} aria-describedby={fieldErrors.team ? "team-error" : undefined} />
-              {fieldErrors.team && <span id="team-error" className="field-error">{fieldErrors.team}</span>}
+
+            <fieldset className="form-choice-field" aria-describedby={fieldErrors.skills ? "skills-error" : undefined}>
+              <legend>AREAS YOU WANT TO EXPLORE</legend>
+              <p>Select one or more areas that your team may use.</p>
+              <div className="choice-grid">
+                {studentSkillOptions.map((skill) => <label className="choice-chip" key={skill}><input type="checkbox" checked={formValues.skills.includes(skill)} onChange={() => toggleSkill(skill)} /><span>{skill}</span></label>)}
+              </div>
+              {fieldErrors.skills && <span id="skills-error" className="field-error">{fieldErrors.skills}</span>}
+            </fieldset>
+
+            <div className="form-field form-field-message">
+              <label htmlFor="projectInterest">WHAT PROBLEM OR IDEA DO YOU WANT TO EXPLORE? <span>OPTIONAL</span></label>
+              <textarea id="projectInterest" value={formValues.projectInterest} onChange={(event) => updateField("projectInterest", event.target.value)} placeholder="A short note helps the organisers understand your interests." maxLength={500} aria-invalid={Boolean(fieldErrors.projectInterest)} aria-describedby={fieldErrors.projectInterest ? "project-error" : undefined} />
+              {fieldErrors.projectInterest && <span id="project-error" className="field-error">{fieldErrors.projectInterest}</span>}
             </div>
+
+            <label className="consent-check"><input type="checkbox" checked={formValues.consent} onChange={(event) => updateField("consent", event.target.checked)} aria-invalid={Boolean(fieldErrors.consent)} aria-describedby={fieldErrors.consent ? "consent-error" : undefined} /><span>I confirm that these details are accurate and that I have permission from my parent, guardian, or school to share them for Hackfinity event communication.</span></label>
+            {fieldErrors.consent && <span id="consent-error" className="field-error">{fieldErrors.consent}</span>}
             <div className="form-submit-row">
-              <button type="submit" className="button button-solar">Prepare my registration <Send aria-hidden="true" /></button>
-              <p>Submitting now validates the form only. No details are sent until the Google Sheets connection is activated.</p>
+              <button type="submit" className="button button-solar">Review my application <Send aria-hidden="true" /></button>
+              <p>Your details are used only for Hackfinity registration. Nothing is sent until the secure Google Sheets connection is activated.</p>
             </div>
             {submitState === "prepared" && (
-              <div className="form-notice" role="status"><Check aria-hidden="true" /> Your details look ready. The organiser will activate secure submissions soon; nothing has been saved yet.</div>
+              <div className="form-notice" role="status"><Check aria-hidden="true" /> Your student application looks ready. The organiser will activate secure submissions soon; nothing has been saved yet.</div>
             )}
           </form>
         </section>

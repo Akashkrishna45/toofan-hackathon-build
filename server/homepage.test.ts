@@ -42,6 +42,9 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain('/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg?v=hackfinity-2026');
     expect(page).toContain('school-host-mark');
     expect(page).toContain('30 DAYS · 4 CHALLENGES');
-    expect(page).toContain("No details are sent until the Google Sheets connection is activated.");
+    expect(page).toContain("Nothing is sent until the secure Google Sheets connection is activated.");
+    expect(page).toContain("PARENT / GUARDIAN CONTACT");
+    expect(page).toContain("PREFERRED CHALLENGE CATEGORY");
+    expect(page).toContain("AREAS YOU WANT TO EXPLORE");
   });
 });
