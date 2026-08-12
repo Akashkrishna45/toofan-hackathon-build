@@ -38,9 +38,13 @@
 - [x] Save a checkpoint for the expanded student registration flow.
 - [x] Add GitHub Pages static deployment configuration for the connected `Akashkrishna45/toofan-hackathon-build` repository.
 - [x] Validate the production frontend build for GitHub Pages and document the static-hosting limitation for secure Google Sheets submissions.
-- [ ] Save the GitHub Pages configuration checkpoint and guide the user through enabling Pages in repository settings.
+- [x] Save the GitHub Pages configuration checkpoint.
+- [ ] Guide the user through enabling GitHub Pages in the connected repository settings.
 - [x] Replace the Manus-only St. John’s asset route with a GitHub Pages-compatible public asset and verify the generated static output uses the repository base path.
 - [x] Update the GitHub Pages notes to document the bundled school-logo asset and retest the static build.
+- [x] Remove the conflicting explicit pnpm version from the GitHub Pages workflow and provide the corrected file for the connected repository.
+- [x] Validate the corrected workflow configuration and prepare the user instructions for committing and rerunning it in GitHub Actions.
+- [ ] Save the corrected workflow checkpoint and guide the user through applying the edit and rerunning GitHub Actions.
 
 ## Reference notes
 
