@@ -22,6 +22,9 @@
 - [x] Correct the third card to the exact official name: Recovery & Rehabilitation Challenge, then reconfirm all four category labels.
 - [x] Verify the full official-category card set after the exact-name correction on desktop and mobile.
 - [x] Remove badge-like marking from the Hackfinity and TOOFAN identity treatment while preserving clear hierarchy and readability.
+- [x] Replace generic Hackfinity copy with the organiser-provided 2026 platform narrative, inaugural-edition impact, and launchpad positioning.
+- [x] Add the organiser-provided TOOFAN – The Narco Hunt mission, 30-day challenge context, and approved technology focus.
+- [x] Make the supplied St. John’s School logo a clearly visible required host element in the heading and venue authority treatment.
 
 ## Reference notes
 

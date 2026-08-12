@@ -34,26 +34,34 @@ const navItems = [
   { label: "Register", href: "#register" },
 ];
 
-const experienceCards = [
+const impactCards = [
   {
     number: "01",
-    icon: <Zap aria-hidden="true" />,
-    title: "Spark",
-    description: "Bring the question that keeps you up at night. TOOFAN is where curiosity catches a current.",
+    icon: <Sparkles aria-hidden="true" />,
+    title: "Project development grants",
+    description: "The Top 5 winning teams received project development grants of ₹10,000 each.",
   },
   {
     number: "02",
-    icon: <Layers3 aria-hidden="true" />,
-    title: "Shape",
-    description: "Move from scattered thoughts to something tangible, with your team and your own way of making.",
+    icon: <Compass aria-hidden="true" />,
+    title: "Internship opportunities",
+    description: "Selected students were offered internship opportunities with national and international organizations.",
   },
   {
     number: "03",
-    icon: <Compass aria-hidden="true" />,
-    title: "Surge",
-    description: "Step into the showcase with a story, a spark, and the confidence to send it into the world.",
+    icon: <Layers3 aria-hidden="true" />,
+    title: "Expert collaboration",
+    description: "Students worked alongside industry professionals, researchers, engineers, and domain experts.",
+  },
+  {
+    number: "04",
+    icon: <Zap aria-hidden="true" />,
+    title: "Beyond the competition",
+    description: "Several projects continued development beyond the competition stage.",
   },
 ];
+
+const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biotechnology", "Design Thinking", "Digital Technologies", "Entrepreneurship"];
 
 const challengeCards = [
   {
@@ -137,7 +145,7 @@ export default function Home() {
 
       <header className="site-header">
         <a className="school-lockup" href="#top" aria-label="Hackfinity home">
-          <span className="school-seal" aria-hidden="true">SJ</span>
+          <span className="header-school-logo"><img src="/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg" alt="" /></span>
           <span className="school-lockup-copy">
             <span className="school-lockup-top">HOSTED AT</span>
             <span className="school-lockup-name">ST. JOHN&apos;S <em>ANCHAL</em></span>
@@ -234,16 +242,16 @@ export default function Home() {
         </section>
 
         <section id="story" className="story-section section-shell">
-          <div className="section-label"><span>01</span> INSIDE THE STORM</div>
+          <div className="section-label"><span>01</span> ABOUT HACKFINITY 2026</div>
           <div className="story-layout">
             <div className="story-title-wrap">
-              <p className="eyebrow">A NEW KIND OF WEATHER</p>
-              <h2>Not every <em>storm</em> is meant to be escaped.</h2>
+              <p className="eyebrow">ST. JOHN&apos;S SCHOOL&apos;S FLAGSHIP INNOVATION PLATFORM</p>
+              <h2>A launchpad for<br /><em>future innovators.</em></h2>
             </div>
             <div className="story-copy">
-              <p>TOOFAN is the current that runs through Hackfinity: the moment when an idea stops being a thought and becomes a force. It is for makers ready to follow the static, test the unknown, and build something that moves.</p>
-              <p>Come as you are. Leave with a signal worth carrying forward.</p>
-              <a className="text-link" href="#experience">See what is waiting <ArrowUpRight aria-hidden="true" /></a>
+              <p>Hackfinity is St. John&apos;s School&apos;s flagship student innovation platform designed to inspire young minds to solve real-world challenges through research, technology, creativity, and entrepreneurship.</p>
+              <p>Following the success of the inaugural edition, Hackfinity 2026 returns with a powerful social mission through TOOFAN – The Narco Hunt, a 30-day innovation challenge dedicated to developing solutions that help combat substance abuse and build safer communities.</p>
+              <a className="text-link" href="#toofan-mission">Discover the mission <ArrowUpRight aria-hidden="true" /></a>
             </div>
           </div>
 
@@ -257,12 +265,12 @@ export default function Home() {
 
         <section id="experience" className="experience-section section-shell">
           <div className="experience-heading">
-            <div className="section-label section-label-light"><span>02</span> THE CURRENT</div>
-            <h2>Three moves.<br /><em>One wild</em> direction.</h2>
-            <p>The details will arrive with the official event brief. For now, begin with the energy that gets ideas out of your head and into the room.</p>
+            <div className="section-label section-label-light"><span>02</span> IMPACT BEYOND THE COMPETITION</div>
+            <h2>More than a<br /><em>hackathon.</em></h2>
+            <p>The previous edition brought together hundreds of student innovators, researchers, creators, and future problem-solvers from more than 60 schools across South India.</p>
           </div>
           <div className="experience-grid">
-            {experienceCards.map((card) => (
+            {impactCards.map((card) => (
               <article className="experience-card" key={card.number}>
                 <div className="experience-card-top"><span>{card.number}</span>{card.icon}</div>
                 <h3>{card.title}</h3>
@@ -273,18 +281,35 @@ export default function Home() {
           </div>
           <div className="signal-quote">
             <Wind aria-hidden="true" />
-            <p>There is no map for a fresh idea.<br /><span>Only the next brave move.</span></p>
+            <p>Transform ideas into meaningful solutions<br /><span>with real-world impact.</span></p>
+          </div>
+        </section>
+
+        <section id="toofan-mission" className="toofan-mission-section section-shell">
+          <div className="toofan-mission-orbit" aria-hidden="true"><span /><span /><span /></div>
+          <div className="toofan-mission-heading">
+            <div className="section-label"><span>03</span> HACKFINITY 2026 THEME</div>
+            <p className="eyebrow">A 30-DAY INNOVATION CHALLENGE</p>
+            <h2>TOOFAN –<br /><em>The Narco Hunt.</em></h2>
+          </div>
+          <div className="toofan-mission-copy">
+            <p>Substance abuse is one of society&apos;s most challenging issues and requires innovative thinking, research, technology, and collective action.</p>
+            <p>TOOFAN challenges students to develop practical solutions that create awareness, strengthen prevention, support recovery and rehabilitation, and drive future innovation.</p>
+          </div>
+          <div className="focus-areas">
+            <span>BUILD WITH</span>
+            <div>{focusAreas.map((area) => <i key={area}>{area}</i>)}</div>
           </div>
         </section>
 
         <section id="challenges" className="challenges-section section-shell">
           <div className="challenges-heading">
-            <div className="section-label"><span>03</span> FOUR CHALLENGES</div>
+            <div className="section-label"><span>04</span> FOUR CHALLENGES</div>
             <div>
-              <p className="eyebrow">CHOOSE YOUR CURRENT</p>
-              <h2>Four ways to<br /><em>move the map.</em></h2>
+              <p className="eyebrow">CHOOSE YOUR IMPACT</p>
+              <h2>Four ways to<br /><em>build safer communities.</em></h2>
             </div>
-            <p>Each challenge is a launch point, not a limit. The organising team can refine the detailed brief, but every direction begins with a real-world question worth meeting head-on.</p>
+            <p>Develop practical, people-centred solutions that help combat substance abuse and create measurable social impact.</p>
           </div>
           <div className="challenge-grid">
             {challengeCards.map((challenge) => (
@@ -314,7 +339,7 @@ export default function Home() {
             <div className="venue-rings"><span /><span /><span /></div>
           </div>
           <div className="venue-content">
-            <div className="section-label"><span>04</span> FIND THE GROUND</div>
+            <div className="section-label"><span>05</span> FIND THE GROUND</div>
             <div className="official-host-mark official-host-mark-prominent">
               <span>OFFICIAL HOST · ST. JOHN&apos;S SCHOOL, ANCHAL</span>
               <img src="/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg" alt="St. John’s School, Anchal" />
@@ -328,7 +353,7 @@ export default function Home() {
 
         <section id="register" className="register-section section-shell">
           <div className="register-heading">
-            <div className="section-label section-label-light"><span>05</span> HOLD YOUR PLACE</div>
+            <div className="section-label section-label-light"><span>06</span> HOLD YOUR PLACE</div>
             <h2>Ready when<br />the <em>storm</em> is.</h2>
             <p>Drop a signal below. The registration connection will be switched on with the organiser&apos;s Google Sheet before public submissions open.</p>
             <div className="registration-status"><span className="status-pulse" aria-hidden="true" /> REGISTRATION SYSTEM: PREPARING</div>

@@ -10,6 +10,12 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("HACKFINITY");
     expect(page).toContain("TOOFAN");
     expect(page).not.toContain("TOOFAN THEME");
+    expect(page).toContain("ABOUT HACKFINITY 2026");
+    expect(page).toContain("TOOFAN – The Narco Hunt");
+    expect(page).toContain("30-day innovation challenge");
+    expect(page).toContain("more than 60 schools across South India");
+    expect(page).toContain("₹10,000 each");
+    expect(page).toContain("Artificial Intelligence");
     expect(page).toContain("09 OCT 2026");
     expect(page).toContain("ST. JOHN&#x27;S SCHOOL, ANCHAL");
     expect(page).toContain("The Storm");
@@ -33,6 +39,7 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("OFFICIAL HOST");
     expect(page).toContain("POWERED BY");
     expect(page).toContain("HOWNWHY");
+    expect(page).toContain('/manus-storage/LOGOSTJOHNS_2e90bbbf.jpg');
     expect(page).toContain("No details are sent until the Google Sheets connection is activated.");
   });
 });
