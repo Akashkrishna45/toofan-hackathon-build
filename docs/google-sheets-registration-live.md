@@ -21,3 +21,9 @@ No Google password, private key, or private email address is present in the publ
 ## Event-day housekeeping
 
 After confirming the connection, the organiser may delete the labelled **SYSTEM TEST** row from the `Registrations` tab. Do not delete the row headers created by the script.
+
+## Public deployment verification
+
+The public GitHub Pages deployment for commit `84c8efa` completed successfully. The live registration section at `https://hackfinity-st-john-s.github.io/hackfinity/` displays **REGISTRATION SYSTEM: LIVE**, the student-facing submission controls, and the official-account delivery copy.
+
+The deployed JavaScript bundle was also checked directly and contains the official Apps Script endpoint listed above. No registration was submitted during this public verification.
