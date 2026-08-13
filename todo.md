@@ -93,9 +93,12 @@
 - [ ] Replace the unreliable iframe confirmation handoff with a browser-readable, nonce-verified official Apps Script response after the now-verified professional Sheet write.
 - [ ] Diagnose the official Apps Script browser POST response using a honeypot-marked non-writing request before attempting any further real registration confirmation test.
 - [ ] Confirm registrations with a nonce-only, CORS-readable status poll after the private Apps Script form submission, without placing student data in a URL.
-- [ ] Verify the deployed Apps Script cache-status behavior with a honeypot-only request that cannot create a registration row.
-- [ ] Replace the stale deployed Apps Script version with the published nonce-status source and verify that its `doGet(event)` branch reads `confirmationNonce`.
-- [ ] Point the public registration form to the actual Apps Script web-app deployment that contains the nonce-status source, if it differs from the previous endpoint.
+- [x] Verify the deployed Apps Script cache-status behavior with a honeypot-only request that cannot create a registration row.
+- [x] Deploy the published nonce-status source in a verified Apps Script web app and confirm that its `doGet(event)` branch reads `confirmationNonce`.
+- [x] Point the public registration form to the actual Apps Script web-app deployment that contains the nonce-status source, if it differs from the previous endpoint.
+- [ ] Retire or explicitly supersede the old Apps Script deployment, documenting that the public website now uses the new nonce-status endpoint.
+- [ ] Confirm one final live registration reaches the browser’s submitted state through the new endpoint before closing the confirmation-flow work.
+- [ ] Avoid reapplying professional Sheet formatting on every registration write so the nonce status is cached before the browser confirmation window ends.
 
 ## Reference notes
 

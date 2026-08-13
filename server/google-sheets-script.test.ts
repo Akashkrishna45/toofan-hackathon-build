@@ -31,4 +31,11 @@ describe("Official Google Sheets registration script", () => {
     expect(script).toContain("CONFIRMATION_CACHE_SECONDS = 600");
     expect(script).not.toContain("transport === \"fetch\"");
   });
+
+  it("does not repeat expensive sheet formatting for each established registration tab", () => {
+    const script = readFileSync(resolve(process.cwd(), "docs/google-apps-script-registration.gs"), "utf8");
+
+    expect(script).toContain("if (!hasExpectedHeaders)");
+    expect(script).toContain("cacheConfirmation(payload, true);");
+  });
 });

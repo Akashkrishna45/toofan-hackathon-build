@@ -98,11 +98,11 @@ function doPost(event) {
         "New",
         "",
       ]);
+      cacheConfirmation(payload, true);
     } finally {
       lock.releaseLock();
     }
 
-    cacheConfirmation(payload, true);
     return confirmationResponse(payload, true);
   } catch (error) {
     console.error(error);
@@ -124,12 +124,12 @@ function getRegistrationSheet() {
     sheet = spreadsheet.insertSheet(REGISTRATION_SHEET_NAME);
   }
 
-  const currentHeaders = sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).getDisplayValues()[0];
-  if (sheet.getLastRow() === 0 || REGISTRATION_HEADERS.some((header, index) => currentHeaders[index] !== header)) {
+  const hasExpectedHeaders = sheet.getLastRow() > 0
+    && REGISTRATION_HEADERS.every((header, index) => sheet.getRange(1, index + 1).getDisplayValue() === header);
+  if (!hasExpectedHeaders) {
     sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
+    applyRegistrationSheetFormat(sheet);
   }
-
-  applyRegistrationSheetFormat(sheet);
 
   return sheet;
 }

@@ -66,7 +66,7 @@ const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biote
 const stJohnsLogoUrl = `${import.meta.env.BASE_URL}assets/st-johns-school.jpg`;
 const registrationEndpoint = "https://script.google.com/macros/s/AKfycbznM1_OyBoMxXNCUz_0L9L1hxQaCipOWJLN0b59Rlvtor-qIqGGcv2tvn-eGGeJrJTuwg/exec";
 const registrationConfirmationFrameName = "hackfinity-registration-confirmation";
-const registrationResponseTimeoutMs = 15000;
+const registrationResponseTimeoutMs = 30000;
 const registrationStatusPollIntervalMs = 700;
 const eventCountdownTarget = new Date("2026-10-09T00:00:00+05:30").getTime();
 

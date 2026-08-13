@@ -75,3 +75,15 @@ Despite the readable CORS health response, the direct browser POST did not compl
 The public site has now been updated to use the nonce-only status check. The final approved test entry is labelled **SYSTEM TEST — STATUS POLL CONFIRMATION — DELETE AFTER CHECK** and contains only required non-student test data. It is valid, consented, and ready to submit through the normal private form transport.
 
 The final entry entered the visible **Sending application…** state but reached the explicit unavailable state after the full polling interval. This means the browser still did not receive the nonce confirmation; a honeypot-only non-writing diagnostic will now check whether the deployed Apps Script is actually returning cached nonce statuses, without creating another registration row.
+
+The prior endpoint continued to return only its generic health body after the updated source was visibly present in a separate project. The organiser supplied the new `/exec` web-app endpoint from that updated project, and the public form is now deployed against it. The next check uses a honeypot-only request to confirm its nonce-status branch before any further registration is added.
+
+The new endpoint successfully returned a CORS-readable, nonce-matched confirmation after a honeypot-only submission. Because the honeypot is intentionally rejected before any Sheet write, this proves the deployed cache-status logic without creating a registration row. The final end-to-end test can now safely verify the same browser confirmation flow with one clearly labelled test registration.
+
+The first automated final-test attempt failed in the browser value-setting helper before it submitted the form, then lost its page context. No registration payload was sent during that failed attempt; the final labelled test will be restarted from a fresh public page.
+
+The restarted final labelled test has now populated all visible required text fields successfully in the fresh public form. The required skill and consent controls remain to be selected immediately before the single final submission.
+
+The final test now has one valid skill and the required consent selected. Its selected team size is one participant, so no additional-member details are required for this confirmation-only entry.
+
+The final labelled entry was submitted through the public form and entered its visible **Sending application…** state. At the initial observation point, it was still awaiting the nonce-only status result.
