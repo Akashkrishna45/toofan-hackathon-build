@@ -6,9 +6,9 @@ Hackfinity registrations are configured for the organiser’s official-account G
 
 > https://docs.google.com/spreadsheets/d/1J-8rB9WvfQOte8urwIVV5bF4ZkPW3-HaeYV1BB_UG2I/edit
 
-The official Google Apps Script web endpoint is:
+The current official Google Apps Script web endpoint is:
 
-> https://script.google.com/macros/s/AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q/exec
+> https://script.google.com/macros/s/AKfycbznM1_OyBoMxXNCUz_0L9L1hxQaCipOWJLN0b59Rlvtor-qIqGGcv2tvn-eGGeJrJTuwg/exec
 
 The endpoint health check returned `{"ok":true,"service":"Hackfinity registration receiver"}`. An approved test registration named **SYSTEM TEST — OFFICIAL ACCOUNT — DELETE AFTER CHECK** was accepted with HTTP 200 and confirmed visible in the official `Registrations` tab.
 
@@ -71,3 +71,7 @@ The organiser confirmed that the labelled three-participant row is visible with 
 A bounded follow-up from the public site successfully read the endpoint health response with CORS (`200`, `type: cors`). The direct response transport was therefore published and redeployed in the official Apps Script. The final verification entry is labelled **SYSTEM TEST — DIRECT RESPONSE CONFIRMATION — DELETE AFTER CHECK** and includes only required non-student test data.
 
 Despite the readable CORS health response, the direct browser POST did not complete within the 15-second confirmation window. A honeypot-marked diagnostic request—designed not to write a Sheet row—also timed out. The next confirmation approach will therefore retain the already reliable hidden-form POST for the private registration data and use a separate nonce-only CORS-readable GET status check, which cannot expose student details in a URL.
+
+The public site has now been updated to use the nonce-only status check. The final approved test entry is labelled **SYSTEM TEST — STATUS POLL CONFIRMATION — DELETE AFTER CHECK** and contains only required non-student test data. It is valid, consented, and ready to submit through the normal private form transport.
+
+The final entry entered the visible **Sending application…** state but reached the explicit unavailable state after the full polling interval. This means the browser still did not receive the nonce confirmation; a honeypot-only non-writing diagnostic will now check whether the deployed Apps Script is actually returning cached nonce statuses, without creating another registration row.
