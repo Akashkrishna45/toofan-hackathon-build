@@ -13,6 +13,13 @@ describe("Google Sheets registration client", () => {
     expect(matchRegistrationConfirmation("https://script.google.com", payload, "expected")).toBeNull();
   });
 
+  it("accepts a nested Apps Script response only when its nonce matches", () => {
+    const nestedResponse = { source: "hackfinity-registration", nonce: "session-nonce", ok: false };
+
+    expect(matchRegistrationConfirmation("https://script.googleusercontent.com", nestedResponse, "session-nonce")).toEqual(nestedResponse);
+    expect(matchRegistrationConfirmation("https://script.googleusercontent.com", nestedResponse, "different-nonce")).toBeNull();
+  });
+
   it("keeps the confirmation transport isolated from the visible form", () => {
     expect(registrationConfirmationFrameName).toBe("hackfinity-registration-confirmation");
   });

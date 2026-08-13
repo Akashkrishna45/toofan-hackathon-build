@@ -155,7 +155,6 @@ export default function Home() {
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof RegistrationInput, string>>>({});
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "submitted" | "rejected" | "unavailable">("idle");
   const [honeypot, setHoneypot] = useState("");
-  const confirmationFrameRef = useRef<HTMLIFrameElement>(null);
   const pendingNonceRef = useRef<string | null>(null);
   const confirmationTimerRef = useRef<number | null>(null);
 
@@ -185,9 +184,8 @@ export default function Home() {
   useEffect(() => {
     const completeSubmission = (event: MessageEvent<unknown>) => {
       const confirmation = matchRegistrationConfirmation(event.origin, event.data, pendingNonceRef.current);
-      const expectedFrame = confirmationFrameRef.current?.contentWindow;
 
-      if (!confirmation || (expectedFrame && event.source !== expectedFrame)) return;
+      if (!confirmation) return;
 
       if (confirmationTimerRef.current !== null) window.clearTimeout(confirmationTimerRef.current);
       confirmationTimerRef.current = null;
@@ -510,7 +508,7 @@ export default function Home() {
           </div>
 
           <form className="registration-form" data-reveal onSubmit={handleFormSubmit} noValidate>
-            <iframe ref={confirmationFrameRef} className="registration-confirmation-frame" name={registrationConfirmationFrameName} title="Registration confirmation" />
+            <iframe className="registration-confirmation-frame" name={registrationConfirmationFrameName} title="Registration confirmation" />
             <div className="form-honeypot" aria-hidden="true">
               <label htmlFor="website">Website</label>
               <input id="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(event) => setHoneypot(event.target.value)} />

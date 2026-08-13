@@ -27,3 +27,9 @@ After confirming the connection, the organiser may delete the labelled **SYSTEM 
 The public GitHub Pages deployment for commit `84c8efa` completed successfully. The live registration section at `https://hackfinity-st-john-s.github.io/hackfinity/` displays **REGISTRATION SYSTEM: LIVE**, the student-facing submission controls, and the official-account delivery copy.
 
 The deployed JavaScript bundle was also checked directly and contains the official Apps Script endpoint listed above. No registration was submitted during this public verification.
+
+## Confirmation-flow validation
+
+After the nonce-verified confirmation upgrade was deployed, one organiser-approved non-student entry named **SYSTEM TEST — VERIFIED CONFIRMATION — DELETE AFTER CHECK** was submitted through the live public form. The form entered its explicit **Sending application…** state while awaiting the confirmation response from the official Apps Script deployment.
+
+The organiser confirmed that this exact labelled row appeared in the official `Registrations` tab. This verifies that the public form, deployed Apps Script, and official event-owned Sheet complete the registration write successfully. The browser did not receive the Apps Script message because the returned confirmation can travel through a nested Google frame whose `WindowProxy` does not match the outer target iframe. The client now accepts this response based on its strict Google origin and one-time matching nonce, rather than on that unreliable nested-frame identity. Automated acceptance and rejection checks pass locally; final live browser confirmation remains to be checked after publication.
