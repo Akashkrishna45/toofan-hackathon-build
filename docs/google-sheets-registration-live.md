@@ -49,3 +49,15 @@ With organiser approval, one final entry named **SYSTEM TEST — MESSAGE DIAGNOS
 The website source now collects full name, class/grade, student contact number, and email address for every additional member required by the selected team size. The supplied Apps Script source has matching validation and a `Team member details` Sheet column. It also replaces the sandboxed `postMessage` response with a redirect to the site’s same-origin `registration-confirmation.html` callback, which then posts the nonce-verified result to the parent page.
 
 These additions are **not yet live** until the organiser replaces the official Apps Script with the updated source and creates a new web-app deployment. After both the website and script are published, one organiser-approved labelled test can verify that the browser displays the confirmed state and that the new Sheet column is populated.
+
+The prepared source now also upgrades the `Registrations` tab to an organiser-ready format. It sets professional header labels, a St. John’s red header row, frozen identifier and timestamp columns, timestamp formatting, readable column widths, wrapped team-member records, a filter row, and controlled review-status values (`New`, `Under Review`, `Shortlisted`, `Contacted`, and `Complete`) alongside an `Organiser Notes` column. Existing registration rows remain intact; the header row is upgraded when the update is first run.
+
+The GitHub Pages deployment for commit `bc2b37e` is live: the public homepage displays the countdown and `registration-confirmation.html` returns HTTP 200 at the expected project path. The official Sheet remains visible in the browser, but the current browser session is not signed in to the organiser’s Google account, so the Apps Script source and deployment cannot be modified until that authenticated session is connected.
+
+The organiser subsequently connected the `Stjohnshackfinity` Google account. The authenticated official Sheet now exposes **Extensions → Apps Script**, confirming the bound-project editor can be opened for the organiser-approved update.
+
+Opening the bound project’s direct Apps Script URL redirected to Google Drive’s account sign-in page. The Sheet can therefore be viewed with the organiser identity present, but the editor still requires the organiser to establish a full Google Drive login in the connected browser before its source or deployment can be changed.
+
+Two subsequent checks of the active Apps Script window continued to show the blank Google Drive sign-in form. The browser has not yet received a completed editor login, so no source or deployment action has been performed against the organiser’s official project.
+
+The organiser re-confirmed the original web-app endpoint. Its redirect-followed health request returns `{"ok":true,"service":"Hackfinity registration receiver"}`, and the public site continues to display the deployed event countdown. Health status alone does not prove whether the team-member and same-origin callback source was redeployed, so the remaining verification uses one organiser-approved labelled team registration.

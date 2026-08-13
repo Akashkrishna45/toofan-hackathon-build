@@ -8,25 +8,30 @@ const REGISTRATION_SHEET_NAME = "Registrations";
 const HACKFINITY_PARENT_ORIGIN = "https://hackfinity-st-john-s.github.io";
 const HACKFINITY_CONFIRMATION_URL = "https://hackfinity-st-john-s.github.io/hackfinity/registration-confirmation.html";
 const REGISTRATION_HEADERS = [
-  "Record ID",
-  "Submitted at",
-  "Full name",
-  "Email address",
-  "Student contact",
+  "Registration ID",
+  "Submitted On",
+  "Lead / Participant Name",
+  "Email Address",
+  "Student Contact",
   "Class / Grade",
-  "School name",
+  "School / Institution",
   "District / City",
-  "Parent / Guardian name",
-  "Parent / Guardian contact",
-  "Team name",
-  "Team size",
-  "Registration role",
-  "Preferred challenge category",
-  "Areas to explore",
-  "Project interest",
-  "Consent confirmed",
-  "Team member details",
+  "Parent / Guardian Name",
+  "Guardian Contact",
+  "Team Name",
+  "Team Size",
+  "Registration Role",
+  "Challenge Category",
+  "Focus Areas",
+  "Project Interest",
+  "Consent Received",
+  "Team Member Details",
+  "Review Status",
+  "Organiser Notes",
 ];
+
+const REVIEW_STATUSES = ["New", "Under Review", "Shortlisted", "Contacted", "Complete"];
+const REGISTRATION_COLUMN_WIDTHS = [150, 160, 190, 220, 145, 115, 220, 145, 190, 155, 175, 105, 145, 200, 230, 280, 125, 320, 135, 240];
 
 const VALID_CATEGORIES = new Set([
   "Awareness Challenge",
@@ -84,6 +89,8 @@ function doPost(event) {
         registration.projectInterest,
         "Yes",
         formatTeamMembers(registration.teamMembers),
+        "New",
+        "",
       ]);
     } finally {
       lock.releaseLock();
@@ -112,10 +119,47 @@ function getRegistrationSheet() {
   const currentHeaders = sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).getDisplayValues()[0];
   if (sheet.getLastRow() === 0 || REGISTRATION_HEADERS.some((header, index) => currentHeaders[index] !== header)) {
     sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
-    sheet.setFrozenRows(1);
   }
 
+  applyRegistrationSheetFormat(sheet);
+
   return sheet;
+}
+
+function formatRegistrationSheet() {
+  applyRegistrationSheetFormat(getRegistrationSheet());
+}
+
+function applyRegistrationSheetFormat(sheet) {
+  const columnCount = REGISTRATION_HEADERS.length;
+  const maximumRows = Math.max(sheet.getMaxRows(), 2);
+  const headerRange = sheet.getRange(1, 1, 1, columnCount);
+
+  headerRange
+    .setBackground("#8B1E2D")
+    .setFontColor("#FFFFFF")
+    .setFontWeight("bold")
+    .setFontSize(10)
+    .setHorizontalAlignment("center")
+    .setVerticalAlignment("middle")
+    .setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP);
+  sheet.setFrozenRows(1);
+  sheet.setFrozenColumns(2);
+  sheet.setRowHeight(1, 40);
+  sheet.setTabColor("#8B1E2D");
+
+  REGISTRATION_COLUMN_WIDTHS.forEach((width, index) => sheet.setColumnWidth(index + 1, width));
+  sheet.getRange(2, 1, maximumRows - 1, columnCount)
+    .setVerticalAlignment("middle")
+    .setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP)
+    .setFontSize(10);
+  sheet.getRange(2, 2, maximumRows - 1, 1).setNumberFormat("dd mmm yyyy, hh:mm");
+  sheet.getRange(2, 19, maximumRows - 1, 1).setDataValidation(
+    SpreadsheetApp.newDataValidation().requireValueInList(REVIEW_STATUSES, true).setAllowInvalid(false).build(),
+  );
+
+  const filter = sheet.getFilter();
+  if (!filter) sheet.getRange(1, 1, maximumRows, columnCount).createFilter();
 }
 
 function validateRegistration(payload) {
@@ -174,7 +218,8 @@ function validateTeamMember(member, index) {
 }
 
 function formatTeamMembers(teamMembers) {
-  return teamMembers.map((member, index) => `Member ${index + 2}: ${member.name} | ${member.grade} | ${member.phone} | ${member.email}`).join("\n");
+  if (!teamMembers.length) return "Individual registration";
+  return teamMembers.map((member, index) => `Member ${index + 2}: ${member.name}\nClass / Grade: ${member.grade}\nContact: ${member.phone}\nEmail: ${member.email}`).join("\n\n");
 }
 
 function text(value, minimum, maximum, field) {

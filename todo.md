@@ -88,6 +88,8 @@
 - [ ] Replace the unreliable sandboxed iframe `postMessage` handoff with a Google Apps Script-compatible confirmation transport that the public page can verify securely.
 - [x] Add a live, accessible countdown to the official 9 October 2026 Hackfinity event date.
 - [ ] Collect and validate the details of each additional team member according to the selected team size, then map them safely to the organiser’s official Sheet.
+- [ ] Open the bound Apps Script project under the same official Google account profile that owns the Hackfinity registration Sheet before redeploying the updated source.
+- [ ] Present registrations in the official Google Sheet with professional headers, date formatting, readable widths, filters, frozen headings, and organised team-member details.
 
 ## Reference notes
 
