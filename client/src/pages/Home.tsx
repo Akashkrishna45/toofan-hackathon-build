@@ -1,4 +1,4 @@
-import React, { type FormEvent, useEffect, useState } from "react";
+import React, { type FormEvent, useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -20,6 +20,7 @@ import {
   Zap,
 } from "lucide-react";
 import { registrationCategories, registrationSchema, studentSkillOptions, type RegistrationInput } from "@shared/registration";
+import { matchRegistrationConfirmation, registrationConfirmationFrameName } from "@shared/registrationConfirmation";
 
 const eventDetails = {
   date: "09 OCT 2026",
@@ -64,6 +65,7 @@ const impactCards = [
 const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biotechnology", "Design Thinking", "Digital Technologies", "Entrepreneurship"];
 const stJohnsLogoUrl = `${import.meta.env.BASE_URL}assets/st-johns-school.jpg`;
 const registrationEndpoint = "https://script.google.com/macros/s/AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q/exec";
+const registrationConfirmationTimeoutMs = 15000;
 
 function StJohnsLogo({ alt }: { alt: string }) {
   const [source, setSource] = useState(stJohnsLogoUrl);
@@ -151,8 +153,11 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formValues, setFormValues] = useState<RegistrationInput>(registrationDefaults);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof RegistrationInput, string>>>({});
-  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "submitted" | "error">("idle");
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "submitted" | "rejected" | "unavailable">("idle");
   const [honeypot, setHoneypot] = useState("");
+  const confirmationFrameRef = useRef<HTMLIFrameElement>(null);
+  const pendingNonceRef = useRef<string | null>(null);
+  const confirmationTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -175,6 +180,33 @@ export default function Home() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const completeSubmission = (event: MessageEvent<unknown>) => {
+      const confirmation = matchRegistrationConfirmation(event.origin, event.data, pendingNonceRef.current);
+      const expectedFrame = confirmationFrameRef.current?.contentWindow;
+
+      if (!confirmation || (expectedFrame && event.source !== expectedFrame)) return;
+
+      if (confirmationTimerRef.current !== null) window.clearTimeout(confirmationTimerRef.current);
+      confirmationTimerRef.current = null;
+      pendingNonceRef.current = null;
+
+      if (confirmation.ok) {
+        setFormValues(registrationDefaults);
+        setHoneypot("");
+        setSubmitState("submitted");
+      } else {
+        setSubmitState("rejected");
+      }
+    };
+
+    window.addEventListener("message", completeSubmission);
+    return () => {
+      window.removeEventListener("message", completeSubmission);
+      if (confirmationTimerRef.current !== null) window.clearTimeout(confirmationTimerRef.current);
+    };
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
@@ -209,20 +241,28 @@ export default function Home() {
     setFieldErrors({});
     setSubmitState("submitting");
 
-    try {
-      await fetch(registrationEndpoint, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ ...parsed.data, website: honeypot }),
-      });
+    const nonce = window.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
+    pendingNonceRef.current = nonce;
 
-      setFormValues(registrationDefaults);
-      setHoneypot("");
-      setSubmitState("submitted");
-    } catch {
-      setSubmitState("error");
-    }
+    const transportForm = document.createElement("form");
+    transportForm.action = registrationEndpoint;
+    transportForm.method = "POST";
+    transportForm.target = registrationConfirmationFrameName;
+    transportForm.className = "registration-transport";
+
+    const payload = document.createElement("textarea");
+    payload.name = "payload";
+    payload.value = JSON.stringify({ ...parsed.data, website: honeypot, nonce });
+    transportForm.appendChild(payload);
+    document.body.appendChild(transportForm);
+    transportForm.submit();
+    transportForm.remove();
+
+    confirmationTimerRef.current = window.setTimeout(() => {
+      pendingNonceRef.current = null;
+      confirmationTimerRef.current = null;
+      setSubmitState("unavailable");
+    }, registrationConfirmationTimeoutMs);
   };
 
   const updateField = <Field extends keyof RegistrationInput>(field: Field, value: RegistrationInput[Field]) => {
@@ -470,6 +510,7 @@ export default function Home() {
           </div>
 
           <form className="registration-form" data-reveal onSubmit={handleFormSubmit} noValidate>
+            <iframe ref={confirmationFrameRef} className="registration-confirmation-frame" name={registrationConfirmationFrameName} title="Registration confirmation" />
             <div className="form-honeypot" aria-hidden="true">
               <label htmlFor="website">Website</label>
               <input id="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(event) => setHoneypot(event.target.value)} />
@@ -574,10 +615,13 @@ export default function Home() {
               <p>Your details are used only for Hackfinity registration and are sent to the organiser&apos;s registration sheet.</p>
             </div>
             {submitState === "submitted" && (
-              <div className="form-notice" role="status"><Check aria-hidden="true" /> Your registration has been sent to the Hackfinity organisers. Please keep your contact details available for event communication.</div>
+              <div className="form-notice" role="status"><Check aria-hidden="true" /> Your registration has been confirmed by the Hackfinity organisers. Please keep your contact details available for event communication.</div>
             )}
-            {submitState === "error" && (
-              <div className="form-notice form-notice-error" role="alert">We could not send your registration right now. Please check your connection and try again.</div>
+            {submitState === "rejected" && (
+              <div className="form-notice form-notice-error" role="alert">Your registration could not be accepted. Please review the details and try again.</div>
+            )}
+            {submitState === "unavailable" && (
+              <div className="form-notice form-notice-error" role="alert">We could not confirm your registration right now. Please check your connection and try again.</div>
             )}
           </form>
         </section>

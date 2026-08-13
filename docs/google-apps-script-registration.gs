@@ -5,6 +5,7 @@
  * registrations to the "Registrations" tab.
  */
 const REGISTRATION_SHEET_NAME = "Registrations";
+const HACKFINITY_PARENT_ORIGIN = "https://hackfinity-st-john-s.github.io";
 const REGISTRATION_HEADERS = [
   "Record ID",
   "Submitted at",
@@ -47,12 +48,13 @@ function doGet() {
 }
 
 function doPost(event) {
+  let payload = {};
   try {
-    const payload = JSON.parse(event?.postData?.contents || "{}");
+    payload = getPayload(event);
 
     // Quietly reject automated submissions that fill the hidden honeypot field.
     if (String(payload.website || "").trim()) {
-      return jsonResponse({ ok: true });
+      return confirmationResponse(payload.nonce, true);
     }
 
     const registration = validateRegistration(payload);
@@ -84,11 +86,16 @@ function doPost(event) {
       lock.releaseLock();
     }
 
-    return jsonResponse({ ok: true });
+    return confirmationResponse(payload.nonce, true);
   } catch (error) {
     console.error(error);
-    return jsonResponse({ ok: false, error: "Registration could not be recorded." });
+    return confirmationResponse(payload.nonce, false);
   }
+}
+
+function getPayload(event) {
+  if (event?.parameter?.payload) return JSON.parse(event.parameter.payload);
+  return JSON.parse(event?.postData?.contents || "{}");
 }
 
 function getRegistrationSheet() {
@@ -172,4 +179,11 @@ function safeForSheet(value) {
 
 function jsonResponse(body) {
   return ContentService.createTextOutput(JSON.stringify(body)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function confirmationResponse(nonce, ok) {
+  const message = JSON.stringify({ source: "hackfinity-registration", nonce: String(nonce || ""), ok: Boolean(ok) });
+  const origin = JSON.stringify(HACKFINITY_PARENT_ORIGIN);
+  return HtmlService.createHtmlOutput(`<script>window.top.postMessage(${message}, ${origin});</script>`)
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }

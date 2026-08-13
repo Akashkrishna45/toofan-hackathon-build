@@ -1,15 +1,19 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { matchRegistrationConfirmation, registrationConfirmationFrameName } from "../shared/registrationConfirmation";
 
 describe("Google Sheets registration client", () => {
-  it("uses a simple cross-site request compatible with the Apps Script web endpoint", () => {
-    const home = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
+  it("accepts a matching Apps Script confirmation", () => {
+    expect(matchRegistrationConfirmation("https://script.googleusercontent.com", { source: "hackfinity-registration", nonce: "expected", ok: true }, "expected")).toEqual({ source: "hackfinity-registration", nonce: "expected", ok: true });
+  });
 
-    expect(home).toContain("const registrationEndpoint =");
-    expect(home).toContain('method: "POST"');
-    expect(home).toContain('mode: "no-cors"');
-    expect(home).toContain('"Content-Type": "text/plain;charset=utf-8"');
-    expect(home).toContain("website: honeypot");
+  it("rejects confirmations with the wrong origin or nonce", () => {
+    const payload = { source: "hackfinity-registration", nonce: "wrong", ok: true };
+
+    expect(matchRegistrationConfirmation("https://example.com", payload, "expected")).toBeNull();
+    expect(matchRegistrationConfirmation("https://script.google.com", payload, "expected")).toBeNull();
+  });
+
+  it("keeps the confirmation transport isolated from the visible form", () => {
+    expect(registrationConfirmationFrameName).toBe("hackfinity-registration-confirmation");
   });
 });

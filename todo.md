@@ -83,6 +83,7 @@
 - [ ] Implement a private response-verifiable registration relay to the official Google Sheet so the custom Hackfinity form confirms success only after accepted delivery.
 - [ ] Restore a private deployable server path for the verification relay after the original managed GitHub project link was disconnected during the organization repository transfer.
 - [ ] Create a private Hackfinity relay backup repository and use it only to restore deployable server hosting without changing the public GitHub Pages website repository or URL.
+- [ ] Replace the blocked private relay deployment with a nonce-verified Apps Script confirmation response so the custom static form can distinguish confirmed, rejected, and unavailable registrations.
 
 ## Reference notes
 
