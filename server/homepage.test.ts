@@ -33,7 +33,7 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("Smart Wellness Wearables");
   });
 
-  it("presents host and partner identity while accurately describing the pre-Sheets registration state", () => {
+  it("presents host and partner identity while accurately describing the live Sheets registration state", () => {
     const page = renderToStaticMarkup(createElement(Home));
 
     expect(page).toContain("OFFICIAL HOST");
@@ -42,7 +42,9 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain('/assets/st-johns-school.jpg');
     expect(page).toContain('school-host-mark');
     expect(page).toContain('30 DAYS · 4 CHALLENGES');
-    expect(page).toContain("Nothing is sent until the secure Google Sheets connection is activated.");
+    expect(page).toContain("REGISTRATION SYSTEM: LIVE");
+    expect(page).toContain("are sent to the organiser&#x27;s registration sheet.");
+    expect(page).toContain("Submit my application");
     expect(page).toContain("PARENT / GUARDIAN CONTACT");
     expect(page).toContain("PREFERRED CHALLENGE CATEGORY");
     expect(page).toContain("AREAS YOU WANT TO EXPLORE");

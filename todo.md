@@ -66,6 +66,18 @@
 - [x] Verify the renamed `Hackfinity-ST-JOHN-S/hackfinity` repository and its final GitHub Pages deployment at the clean organization URL.
 - [x] Publish the verified automatic stale-route recovery safeguard to the organization repository and recheck the live site after its deployment.
 - [x] Preserve the existing `Hackfinity-ST-JOHN-S/hackfinity` repository without creating a duplicate after the managed GitHub link cannot attach to a transferred repository, then synchronize the tested safeguard directly.
+- [ ] Select a secure Google Sheets submission approach compatible with the static Hackfinity website and collect the organizer-controlled sheet access requirements.
+- [ ] Connect validated Hackfinity registrations to the selected organizer-controlled Google Sheet without exposing credentials in the browser.
+- [ ] Collect the organizer’s Google Sheet URL and Google Apps Script deployment URL for the selected free registration-delivery approach.
+- [ ] Configure the registration form to submit validated details to the deployed Google Apps Script endpoint and show an accurate success or retry state.
+- [ ] Prepare a sheet-bound registration endpoint for the organizer’s Google Sheet `114yq8H3tzPcWUQG1GI5vAVx4h3PsIu3IMIBM2FK11gk` and map all approved registration fields to the Registrations tab.
+- [ ] Verify the deployed organizer Apps Script endpoint and integrate it as the registration form’s public submission destination.
+- [ ] Correct the cross-site Google Apps Script submission method and verify that the spreadsheet’s bottom sheet tab—not cell A1—is named `Registrations` before an approved retest.
+- [x] Validate the corrected Apps Script endpoint with one approved labelled test registration and confirm that the row and automatic headers appear in the `Registrations` tab.
+- [ ] Confirm whether the organizer will retain the verified private-account Sheet owner or move the registration Sheet and Apps Script to an official event account before public launch.
+- [ ] Create and verify an official-account-owned registration Sheet and Apps Script endpoint, then switch Hackfinity registrations to that new verified endpoint.
+- [ ] Resolve the official Google account’s Apps Script editor access error by opening the event-owned Sheet under the correct active Google account before creating its replacement endpoint.
+- [ ] Verify the new official-account Apps Script endpoint `AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q` and use it only after approved Sheet delivery validation.
 
 ## Reference notes
 

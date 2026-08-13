@@ -63,6 +63,7 @@ const impactCards = [
 
 const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biotechnology", "Design Thinking", "Digital Technologies", "Entrepreneurship"];
 const stJohnsLogoUrl = `${import.meta.env.BASE_URL}assets/st-johns-school.jpg`;
+const registrationEndpoint = "https://script.google.com/macros/s/AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q/exec";
 
 function StJohnsLogo({ alt }: { alt: string }) {
   const [source, setSource] = useState(stJohnsLogoUrl);
@@ -150,7 +151,8 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formValues, setFormValues] = useState<RegistrationInput>(registrationDefaults);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof RegistrationInput, string>>>({});
-  const [submitState, setSubmitState] = useState<"idle" | "prepared">("idle");
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "submitted" | "error">("idle");
+  const [honeypot, setHoneypot] = useState("");
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -177,7 +179,7 @@ export default function Home() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const parsed = registrationSchema.safeParse(formValues);
 
@@ -205,7 +207,22 @@ export default function Home() {
     }
 
     setFieldErrors({});
-    setSubmitState("prepared");
+    setSubmitState("submitting");
+
+    try {
+      await fetch(registrationEndpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ ...parsed.data, website: honeypot }),
+      });
+
+      setFormValues(registrationDefaults);
+      setHoneypot("");
+      setSubmitState("submitted");
+    } catch {
+      setSubmitState("error");
+    }
   };
 
   const updateField = <Field extends keyof RegistrationInput>(field: Field, value: RegistrationInput[Field]) => {
@@ -448,11 +465,15 @@ export default function Home() {
           <div className="register-heading" data-reveal>
             <div className="section-label section-label-light"><span>06</span> HOLD YOUR PLACE</div>
             <h2>Ready when<br />the <em>storm</em> is.</h2>
-            <p>Drop a signal below. The registration connection will be switched on with the organiser&apos;s Google Sheet before public submissions open.</p>
-            <div className="registration-status"><span className="status-pulse" aria-hidden="true" /> REGISTRATION SYSTEM: PREPARING</div>
+            <p>Drop a signal below. Valid student registrations are sent securely to the organiser&apos;s Hackfinity registration sheet.</p>
+            <div className="registration-status"><span className="status-pulse" aria-hidden="true" /> REGISTRATION SYSTEM: LIVE</div>
           </div>
 
           <form className="registration-form" data-reveal onSubmit={handleFormSubmit} noValidate>
+            <div className="form-honeypot" aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input id="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(event) => setHoneypot(event.target.value)} />
+            </div>
             <div className="form-section-heading"><span>01</span> STUDENT PROFILE</div>
             <div className="form-grid">
               <div className="form-field">
@@ -549,11 +570,14 @@ export default function Home() {
             <label className="consent-check"><input type="checkbox" checked={formValues.consent} onChange={(event) => updateField("consent", event.target.checked)} aria-invalid={Boolean(fieldErrors.consent)} aria-describedby={fieldErrors.consent ? "consent-error" : undefined} /><span>I confirm that these details are accurate and that I have permission from my parent, guardian, or school to share them for Hackfinity event communication.</span></label>
             {fieldErrors.consent && <span id="consent-error" className="field-error">{fieldErrors.consent}</span>}
             <div className="form-submit-row">
-              <button type="submit" className="button button-solar">Review my application <Send aria-hidden="true" /></button>
-              <p>Your details are used only for Hackfinity registration. Nothing is sent until the secure Google Sheets connection is activated.</p>
+              <button type="submit" className="button button-solar" disabled={submitState === "submitting"}>{submitState === "submitting" ? "Sending application…" : "Submit my application"} <Send aria-hidden="true" /></button>
+              <p>Your details are used only for Hackfinity registration and are sent to the organiser&apos;s registration sheet.</p>
             </div>
-            {submitState === "prepared" && (
-              <div className="form-notice" role="status"><Check aria-hidden="true" /> Your student application looks ready. The organiser will activate secure submissions soon; nothing has been saved yet.</div>
+            {submitState === "submitted" && (
+              <div className="form-notice" role="status"><Check aria-hidden="true" /> Your registration has been sent to the Hackfinity organisers. Please keep your contact details available for event communication.</div>
+            )}
+            {submitState === "error" && (
+              <div className="form-notice form-notice-error" role="alert">We could not send your registration right now. Please check your connection and try again.</div>
             )}
           </form>
         </section>
