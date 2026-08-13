@@ -8,9 +8,7 @@ export default function NotFound() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    if (window.location.hostname.endsWith(".github.io")) {
-      window.location.replace(import.meta.env.BASE_URL);
-    }
+    window.location.replace(import.meta.env.BASE_URL);
   }, []);
 
   const handleGoHome = () => {

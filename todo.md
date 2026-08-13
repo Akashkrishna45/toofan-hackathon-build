@@ -58,10 +58,14 @@
 - [x] Replace the broken live St. John’s image with a GitHub Pages-reliable host treatment and static-asset fallback.
 - [x] Validate the repaired static output and guide the user through publishing the image fix on GitHub Pages.
 - [x] Configure the client router to respect Vite’s GitHub Pages repository base path so the deployed root route does not render the internal 404 screen.
-- [ ] Investigate the user-reported published root-route 404 that still appears before pressing Go Home, including cache and stale-bundle behavior.
-- [ ] Ensure the GitHub Pages root URL renders Hackfinity directly even when an earlier browser bundle is cached, then re-verify with a fresh public request.
-- [ ] Review and implement the user’s preferred public URL option so the live Hackfinity address does not include the personal GitHub account name.
-- [ ] Verify `Hackfinity-ST-JOHN-S` can receive the Hackfinity repository, prepare the GitHub Pages base-path migration, and transfer ownership only after explicit user confirmation.
+- [x] Investigate the user-reported published root-route 404 that still appears before pressing Go Home, including cache and stale-bundle behavior.
+- [x] Ensure the GitHub Pages root URL renders Hackfinity directly even when an earlier browser bundle is cached, then re-verify with a fresh public request.
+- [x] Review and implement the user’s preferred public URL option so the live Hackfinity address does not include the personal GitHub account name.
+- [x] Verify `Hackfinity-ST-JOHN-S` can receive the Hackfinity repository, prepare the GitHub Pages base-path migration, and transfer ownership only after explicit user confirmation.
+- [x] Verify the completed transfer to `Hackfinity-ST-JOHN-S`, rename the repository to `hackfinity`, and confirm the organization-hosted Pages URL.
+- [x] Verify the renamed `Hackfinity-ST-JOHN-S/hackfinity` repository and its final GitHub Pages deployment at the clean organization URL.
+- [ ] Publish the verified automatic stale-route recovery safeguard to the organization repository and recheck the live site after its deployment.
+- [ ] Preserve the existing `Hackfinity-ST-JOHN-S/hackfinity` repository without creating a duplicate after the managed GitHub link cannot attach to a transferred repository, then synchronize the tested safeguard directly.
 
 ## Reference notes
 
