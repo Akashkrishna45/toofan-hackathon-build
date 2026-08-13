@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { registrationCategories, registrationSchema, studentSkillOptions, type RegistrationInput, type TeamMemberInput } from "@shared/registration";
 import { matchRegistrationConfirmation } from "@shared/registrationConfirmation";
+import { getRegistrationSubmissionState } from "@shared/registrationSubmission";
 
 const eventDetails = {
   date: "09 OCT 2026",
@@ -282,16 +283,20 @@ export default function Home() {
     const timeout = window.setTimeout(() => controller.abort(), registrationResponseTimeoutMs);
 
     try {
-      let confirmation = null;
-      while (!controller.signal.aborted && !confirmation) {
+      let outcome: "submitted" | "rejected" | null = null;
+      while (!controller.signal.aborted && !outcome) {
         const statusUrl = `${registrationEndpoint}?confirmationNonce=${encodeURIComponent(nonce)}`;
         const response = await fetch(statusUrl, { cache: "no-store", signal: controller.signal });
-        confirmation = matchRegistrationConfirmation(await response.json(), nonce);
-        if (!confirmation) await new Promise((resolve) => window.setTimeout(resolve, registrationStatusPollIntervalMs));
+        const state = getRegistrationSubmissionState(await response.json(), nonce);
+        if (state === "unavailable") {
+          await new Promise((resolve) => window.setTimeout(resolve, registrationStatusPollIntervalMs));
+        } else {
+          outcome = state;
+        }
       }
 
-      if (!confirmation) throw new Error("The registration status was not available in time.");
-      if (confirmation.ok) {
+      if (!outcome) throw new Error("The registration status was not available in time.");
+      if (outcome === "submitted") {
         setFormValues(registrationDefaults);
         setHoneypot("");
         setSubmitState("submitted");

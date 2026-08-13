@@ -6,8 +6,8 @@
 - [x] Build a performant 3D-inspired hero, responsive navigation, and reduced-motion alternative.
 - [x] Create editable tracks, schedule, venue, FAQ, and contact sections without inventing unconfirmed event facts.
 - [x] Implement and validate a mobile-first registration form with useful confirmation and error states.
-- [ ] Add a protected server endpoint and configuration points for authorized Google Sheets registration writing.
-- [ ] Connect the completed registration flow to the organizer-approved Google Sheet after the website review.
+- [x] Supersede the protected server endpoint with the verified official event-owned Apps Script, which writes registrations without exposing credentials in the public website.
+- [x] Connect the completed registration flow to the organizer-approved official Google Sheet after the website review.
 - [x] Write automated tests for the registration validation and page-critical behaviors.
 - [x] Add a homepage rendering test that protects the key event details, navigation labels, host and partner identity, and the truthful pre-Sheets registration state.
 - [x] Verify the site at mobile and desktop breakpoints.
@@ -79,10 +79,10 @@
 - [x] Resolve the official Google account’s Apps Script editor access error by opening the event-owned Sheet under the correct active Google account before creating its replacement endpoint.
 - [x] Verify the new official-account Apps Script endpoint `AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q` and use it only after approved Sheet delivery validation.
 - [x] Replace the opaque static Apps Script request with a response-verifiable registration delivery path so success is shown only after the organizer endpoint confirms acceptance.
-- [ ] Add automated coverage for accepted registrations, endpoint rejection, and network failure states in the student-facing registration interface.
-- [ ] Implement a private response-verifiable registration relay to the official Google Sheet so the custom Hackfinity form confirms success only after accepted delivery.
-- [ ] Restore a private deployable server path for the verification relay after the original managed GitHub project link was disconnected during the organization repository transfer.
-- [ ] Create a private Hackfinity relay backup repository and use it only to restore deployable server hosting without changing the public GitHub Pages website repository or URL.
+- [x] Add automated coverage for accepted registration responses, endpoint rejection, and unavailable confirmation states in the student-facing registration interface.
+- [x] Supersede the private response-verifiable relay with the verified nonce-only confirmation status poll on the official Apps Script deployment.
+- [x] Supersede restoration of a private relay server path because the official Apps Script confirmation transport now verifies accepted delivery without a separate server.
+- [x] Create and retain the private Hackfinity registration-relay backup repository without changing the public GitHub Pages website repository or URL.
 - [x] Replace the blocked private relay deployment with a nonce-verified Apps Script confirmation response so the custom static form can distinguish confirmed, rejected, and unavailable registrations.
 - [x] Supersede the nested-frame confirmation message with nonce-only status polling so the browser shows success after the verified Sheet delivery.
 - [x] Replace the unreliable sandboxed iframe `postMessage` handoff with a Google Apps Script-compatible confirmation transport that the public page can verify securely.
