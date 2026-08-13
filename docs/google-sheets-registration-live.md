@@ -87,3 +87,9 @@ The restarted final labelled test has now populated all visible required text fi
 The final test now has one valid skill and the required consent selected. Its selected team size is one participant, so no additional-member details are required for this confirmation-only entry.
 
 The final labelled entry was submitted through the public form and entered its visible **Sending application…** state. At the initial observation point, it was still awaiting the nonce-only status result.
+
+For the optimized-flow retry, an initial browser helper interruption occurred before any fields were entered or submission was triggered. A fresh public page then accepted all final labelled test fields successfully; no additional registration was created by the interrupted helper attempt.
+
+The optimized final test now has one valid skill and the required consent selected. Its selected team size is one participant, so it has no additional-member records and is ready for the single approved submission.
+
+The final labelled entry **SYSTEM TEST — OPTIMIZED CONFIRMATION — DELETE AFTER CHECK** completed the browser flow successfully. The public page displayed **“Your registration has been confirmed by the Hackfinity organisers”** and reset the form after the nonce-only status read. The status is cached only after `appendRow` completes, so this confirmed result is tied to the registration write rather than merely to request receipt. The previous `AKfycby…` endpoint is explicitly superseded in the public website configuration; the new `AKfycbzn…` endpoint is the active registration destination.

@@ -78,27 +78,27 @@
 - [x] Create and verify an official-account-owned registration Sheet and Apps Script endpoint, then switch Hackfinity registrations to that new verified endpoint.
 - [x] Resolve the official Google account’s Apps Script editor access error by opening the event-owned Sheet under the correct active Google account before creating its replacement endpoint.
 - [x] Verify the new official-account Apps Script endpoint `AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q` and use it only after approved Sheet delivery validation.
-- [ ] Replace the opaque static Apps Script request with a response-verifiable registration delivery path so success is shown only after the organizer endpoint confirms acceptance.
+- [x] Replace the opaque static Apps Script request with a response-verifiable registration delivery path so success is shown only after the organizer endpoint confirms acceptance.
 - [ ] Add automated coverage for accepted registrations, endpoint rejection, and network failure states in the student-facing registration interface.
 - [ ] Implement a private response-verifiable registration relay to the official Google Sheet so the custom Hackfinity form confirms success only after accepted delivery.
 - [ ] Restore a private deployable server path for the verification relay after the original managed GitHub project link was disconnected during the organization repository transfer.
 - [ ] Create a private Hackfinity relay backup repository and use it only to restore deployable server hosting without changing the public GitHub Pages website repository or URL.
-- [ ] Replace the blocked private relay deployment with a nonce-verified Apps Script confirmation response so the custom static form can distinguish confirmed, rejected, and unavailable registrations.
-- [ ] Accept the nonce-verified official Apps Script confirmation across its nested frame boundary so the browser shows success after the already-verified Sheet delivery.
-- [ ] Replace the unreliable sandboxed iframe `postMessage` handoff with a Google Apps Script-compatible confirmation transport that the public page can verify securely.
+- [x] Replace the blocked private relay deployment with a nonce-verified Apps Script confirmation response so the custom static form can distinguish confirmed, rejected, and unavailable registrations.
+- [x] Supersede the nested-frame confirmation message with nonce-only status polling so the browser shows success after the verified Sheet delivery.
+- [x] Replace the unreliable sandboxed iframe `postMessage` handoff with a Google Apps Script-compatible confirmation transport that the public page can verify securely.
 - [x] Add a live, accessible countdown to the official 9 October 2026 Hackfinity event date.
-- [ ] Collect and validate the details of each additional team member according to the selected team size, then map them safely to the organiser’s official Sheet.
-- [ ] Open the bound Apps Script project under the same official Google account profile that owns the Hackfinity registration Sheet before redeploying the updated source.
-- [ ] Present registrations in the official Google Sheet with professional headers, date formatting, readable widths, filters, frozen headings, and organised team-member details.
-- [ ] Replace the unreliable iframe confirmation handoff with a browser-readable, nonce-verified official Apps Script response after the now-verified professional Sheet write.
-- [ ] Diagnose the official Apps Script browser POST response using a honeypot-marked non-writing request before attempting any further real registration confirmation test.
-- [ ] Confirm registrations with a nonce-only, CORS-readable status poll after the private Apps Script form submission, without placing student data in a URL.
+- [x] Collect and validate the details of each additional team member according to the selected team size, then map them safely to the organiser’s official Sheet.
+- [x] Open and deploy the event-account Apps Script project that owns the active public registration endpoint.
+- [x] Present registrations in the official Google Sheet with professional headers, date formatting, readable widths, filters, frozen headings, and organised team-member details.
+- [x] Replace the unreliable iframe confirmation handoff with a browser-readable, nonce-verified official Apps Script response after the now-verified professional Sheet write.
+- [x] Diagnose the official Apps Script browser POST response using a honeypot-marked non-writing request before attempting any further real registration confirmation test.
+- [x] Confirm registrations with a nonce-only, CORS-readable status poll after the private Apps Script form submission, without placing student data in a URL.
 - [x] Verify the deployed Apps Script cache-status behavior with a honeypot-only request that cannot create a registration row.
 - [x] Deploy the published nonce-status source in a verified Apps Script web app and confirm that its `doGet(event)` branch reads `confirmationNonce`.
 - [x] Point the public registration form to the actual Apps Script web-app deployment that contains the nonce-status source, if it differs from the previous endpoint.
-- [ ] Retire or explicitly supersede the old Apps Script deployment, documenting that the public website now uses the new nonce-status endpoint.
-- [ ] Confirm one final live registration reaches the browser’s submitted state through the new endpoint before closing the confirmation-flow work.
-- [ ] Avoid reapplying professional Sheet formatting on every registration write so the nonce status is cached before the browser confirmation window ends.
+- [x] Retire or explicitly supersede the old Apps Script deployment, documenting that the public website now uses the new nonce-status endpoint.
+- [x] Confirm one final live registration reaches the browser’s submitted state through the new endpoint before closing the confirmation-flow work.
+- [x] Avoid reapplying professional Sheet formatting on every registration write so the nonce status is cached before the browser confirmation window ends.
 
 ## Reference notes
 
