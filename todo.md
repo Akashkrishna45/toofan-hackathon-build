@@ -90,6 +90,7 @@
 - [ ] Collect and validate the details of each additional team member according to the selected team size, then map them safely to the organiser’s official Sheet.
 - [ ] Open the bound Apps Script project under the same official Google account profile that owns the Hackfinity registration Sheet before redeploying the updated source.
 - [ ] Present registrations in the official Google Sheet with professional headers, date formatting, readable widths, filters, frozen headings, and organised team-member details.
+- [ ] Replace the unreliable iframe confirmation handoff with a browser-readable, nonce-verified official Apps Script response after the now-verified professional Sheet write.
 
 ## Reference notes
 

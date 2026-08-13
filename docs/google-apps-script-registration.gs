@@ -61,7 +61,7 @@ function doPost(event) {
 
     // Quietly reject automated submissions that fill the hidden honeypot field.
     if (String(payload.website || "").trim()) {
-      return confirmationResponse(payload.nonce, true);
+      return confirmationResponse(payload, true);
     }
 
     const registration = validateRegistration(payload);
@@ -96,10 +96,10 @@ function doPost(event) {
       lock.releaseLock();
     }
 
-    return confirmationResponse(payload.nonce, true);
+    return confirmationResponse(payload, true);
   } catch (error) {
     console.error(error);
-    return confirmationResponse(payload.nonce, false);
+    return confirmationResponse(payload, false);
   }
 }
 
@@ -248,8 +248,11 @@ function jsonResponse(body) {
   return ContentService.createTextOutput(JSON.stringify(body)).setMimeType(ContentService.MimeType.JSON);
 }
 
-function confirmationResponse(nonce, ok) {
-  const confirmationUrl = `${HACKFINITY_CONFIRMATION_URL}?nonce=${encodeURIComponent(String(nonce || ""))}&ok=${ok ? "1" : "0"}`;
+function confirmationResponse(payload, ok) {
+  const message = { source: "hackfinity-registration", nonce: String(payload?.nonce || ""), ok: Boolean(ok) };
+  if (payload?.transport === "fetch") return jsonResponse(message);
+
+  const confirmationUrl = `${HACKFINITY_CONFIRMATION_URL}?nonce=${encodeURIComponent(message.nonce)}&ok=${message.ok ? "1" : "0"}`;
   return HtmlService.createHtmlOutput(`<script>window.location.replace(${JSON.stringify(confirmationUrl)});</script><meta http-equiv="refresh" content="0; url=${confirmationUrl}">`)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }

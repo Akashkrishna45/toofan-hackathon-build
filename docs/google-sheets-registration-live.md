@@ -61,3 +61,9 @@ Opening the bound project’s direct Apps Script URL redirected to Google Drive�
 Two subsequent checks of the active Apps Script window continued to show the blank Google Drive sign-in form. The browser has not yet received a completed editor login, so no source or deployment action has been performed against the organiser’s official project.
 
 The organiser re-confirmed the original web-app endpoint. Its redirect-followed health request returns `{"ok":true,"service":"Hackfinity registration receiver"}`, and the public site continues to display the deployed event countdown. Health status alone does not prove whether the team-member and same-origin callback source was redeployed, so the remaining verification uses one organiser-approved labelled team registration.
+
+The final approved entry is labelled **SYSTEM TEST — PROFESSIONAL TEAM CONFIRMATION — DELETE AFTER CHECK**. It uses a three-participant team and includes two additional member records. The live form accepted the payload and entered its visible **Sending application…** state; the confirmation response is now being observed.
+
+The live public form subsequently returned to its unavailable state instead of displaying the confirmed state. The public Sheet was reopened to inspect the record and formatting outcome, but its anonymous view did not expose the required row detail in the automation snapshot. The test entry remains clearly labelled for organiser review and deletion.
+
+The organiser confirmed that the labelled three-participant row is visible with the new professional headers. This proves the Sheet write, member mapping, and professional formatting work. A read-only direct-fetch probe from the public site to the Apps Script endpoint did not complete within the browser operation window, so the browser-readable response path requires a bounded follow-up check before it can replace the iframe transport.
