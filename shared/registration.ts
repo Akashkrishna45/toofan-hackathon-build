@@ -17,6 +17,13 @@ export const studentSkillOptions = [
   "Entrepreneurship",
 ] as const;
 
+export const teamMemberSchema = z.object({
+  name: z.string().trim().min(2, "Please enter the team member’s full name.").max(80),
+  grade: z.string().trim().min(1, "Please enter the team member’s class or grade.").max(30),
+  phone: z.string().trim().regex(/^[0-9+\-()\s]{8,20}$/, "Enter a valid team member contact number."),
+  email: z.string().trim().email("Enter a valid team member email address."),
+});
+
 export const registrationSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name.").max(80),
   email: z.string().trim().email("Enter a valid email address."),
@@ -32,7 +39,18 @@ export const registrationSchema = z.object({
   category: z.enum(registrationCategories),
   skills: z.array(z.enum(studentSkillOptions)).min(1, "Select at least one area of interest."),
   projectInterest: z.string().trim().max(500, "Keep your project idea within 500 characters.").optional(),
+  teamMembers: z.array(teamMemberSchema).max(5, "A team can include up to six participants in total."),
   consent: z.boolean().refine((value) => value, "Please confirm that the information is accurate and shared with permission."),
+}).superRefine((registration, context) => {
+  const expectedMemberCount = Number(registration.teamSize) - 1;
+  if (registration.teamMembers.length !== expectedMemberCount) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["teamMembers"],
+      message: `Provide the details for all ${expectedMemberCount} additional team member${expectedMemberCount === 1 ? "" : "s"}.`,
+    });
+  }
 });
 
 export type RegistrationInput = z.infer<typeof registrationSchema>;
+export type TeamMemberInput = z.infer<typeof teamMemberSchema>;

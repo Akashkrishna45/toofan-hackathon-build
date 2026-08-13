@@ -6,6 +6,7 @@
  */
 const REGISTRATION_SHEET_NAME = "Registrations";
 const HACKFINITY_PARENT_ORIGIN = "https://hackfinity-st-john-s.github.io";
+const HACKFINITY_CONFIRMATION_URL = "https://hackfinity-st-john-s.github.io/hackfinity/registration-confirmation.html";
 const REGISTRATION_HEADERS = [
   "Record ID",
   "Submitted at",
@@ -24,6 +25,7 @@ const REGISTRATION_HEADERS = [
   "Areas to explore",
   "Project interest",
   "Consent confirmed",
+  "Team member details",
 ];
 
 const VALID_CATEGORIES = new Set([
@@ -81,6 +83,7 @@ function doPost(event) {
         registration.skills.join(" • "),
         registration.projectInterest,
         "Yes",
+        formatTeamMembers(registration.teamMembers),
       ]);
     } finally {
       lock.releaseLock();
@@ -106,7 +109,8 @@ function getRegistrationSheet() {
     sheet = spreadsheet.insertSheet(REGISTRATION_SHEET_NAME);
   }
 
-  if (sheet.getLastRow() === 0) {
+  const currentHeaders = sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).getDisplayValues()[0];
+  if (sheet.getLastRow() === 0 || REGISTRATION_HEADERS.some((header, index) => currentHeaders[index] !== header)) {
     sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
     sheet.setFrozenRows(1);
   }
@@ -129,12 +133,14 @@ function validateRegistration(payload) {
   const category = String(payload.category || "");
   const skills = Array.isArray(payload.skills) ? payload.skills.map((skill) => String(skill)) : [];
   const projectInterest = optionalText(payload.projectInterest, 500);
+  const teamMembers = Array.isArray(payload.teamMembers) ? payload.teamMembers : [];
 
   if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error("Invalid email address.");
   if (!/^[1-6]$/.test(teamSize)) throw new Error("Invalid team size.");
   if (!["Individual Participant", "Team Lead", "Team Member"].includes(registrationRole)) throw new Error("Invalid registration role.");
   if (!VALID_CATEGORIES.has(category)) throw new Error("Invalid challenge category.");
   if (!skills.length || skills.some((skill) => !VALID_SKILLS.has(skill))) throw new Error("Invalid areas to explore.");
+  if (teamMembers.length !== Number(teamSize) - 1) throw new Error("Missing team member details.");
   if (payload.consent !== true) throw new Error("Consent is required.");
 
   return {
@@ -152,7 +158,23 @@ function validateRegistration(payload) {
     category,
     skills: skills.map(safeForSheet),
     projectInterest,
+    teamMembers: teamMembers.map((member, index) => validateTeamMember(member, index)),
   };
+}
+
+function validateTeamMember(member, index) {
+  if (!member || typeof member !== "object") throw new Error(`Invalid team member ${index + 2}.`);
+  const name = text(member.name, 2, 80, `team member ${index + 2} name`);
+  const email = text(member.email, 3, 160, `team member ${index + 2} email`).toLowerCase();
+  const phone = phoneNumber(member.phone, `team member ${index + 2} contact`);
+  const grade = text(member.grade, 1, 30, `team member ${index + 2} class or grade`);
+
+  if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error(`Invalid team member ${index + 2} email.`);
+  return { name, email: safeForSheet(email), phone, grade };
+}
+
+function formatTeamMembers(teamMembers) {
+  return teamMembers.map((member, index) => `Member ${index + 2}: ${member.name} | ${member.grade} | ${member.phone} | ${member.email}`).join("\n");
 }
 
 function text(value, minimum, maximum, field) {
@@ -182,8 +204,7 @@ function jsonResponse(body) {
 }
 
 function confirmationResponse(nonce, ok) {
-  const message = JSON.stringify({ source: "hackfinity-registration", nonce: String(nonce || ""), ok: Boolean(ok) });
-  const origin = JSON.stringify(HACKFINITY_PARENT_ORIGIN);
-  return HtmlService.createHtmlOutput(`<script>window.top.postMessage(${message}, ${origin});</script>`)
+  const confirmationUrl = `${HACKFINITY_CONFIRMATION_URL}?nonce=${encodeURIComponent(String(nonce || ""))}&ok=${ok ? "1" : "0"}`;
+  return HtmlService.createHtmlOutput(`<script>window.location.replace(${JSON.stringify(confirmationUrl)});</script><meta http-equiv="refresh" content="0; url=${confirmationUrl}">`)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }

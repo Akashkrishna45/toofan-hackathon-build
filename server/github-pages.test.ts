@@ -25,4 +25,12 @@ describe("GitHub Pages fallback", () => {
     expect(notFound).toContain("window.location.replace(import.meta.env.BASE_URL)");
     expect(notFound).not.toContain("window.location.hostname");
   });
+
+  it("ships a same-origin registration confirmation callback for the Apps Script handoff", () => {
+    const callback = readFileSync(resolve(process.cwd(), "client/public/registration-confirmation.html"), "utf8");
+
+    expect(callback).toContain("window.top.postMessage");
+    expect(callback).toContain("window.location.origin");
+    expect(callback).toContain('source: "hackfinity-registration"');
+  });
 });

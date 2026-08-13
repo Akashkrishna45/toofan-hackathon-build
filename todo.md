@@ -83,8 +83,11 @@
 - [ ] Implement a private response-verifiable registration relay to the official Google Sheet so the custom Hackfinity form confirms success only after accepted delivery.
 - [ ] Restore a private deployable server path for the verification relay after the original managed GitHub project link was disconnected during the organization repository transfer.
 - [ ] Create a private Hackfinity relay backup repository and use it only to restore deployable server hosting without changing the public GitHub Pages website repository or URL.
-- [x] Replace the blocked private relay deployment with a nonce-verified Apps Script confirmation response so the custom static form can distinguish confirmed, rejected, and unavailable registrations.
+- [ ] Replace the blocked private relay deployment with a nonce-verified Apps Script confirmation response so the custom static form can distinguish confirmed, rejected, and unavailable registrations.
 - [ ] Accept the nonce-verified official Apps Script confirmation across its nested frame boundary so the browser shows success after the already-verified Sheet delivery.
+- [ ] Replace the unreliable sandboxed iframe `postMessage` handoff with a Google Apps Script-compatible confirmation transport that the public page can verify securely.
+- [x] Add a live, accessible countdown to the official 9 October 2026 Hackfinity event date.
+- [ ] Collect and validate the details of each additional team member according to the selected team size, then map them safely to the organiser’s official Sheet.
 
 ## Reference notes
 

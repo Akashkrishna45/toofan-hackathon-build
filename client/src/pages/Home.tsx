@@ -19,7 +19,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { registrationCategories, registrationSchema, studentSkillOptions, type RegistrationInput } from "@shared/registration";
+import { registrationCategories, registrationSchema, studentSkillOptions, type RegistrationInput, type TeamMemberInput } from "@shared/registration";
 import { matchRegistrationConfirmation, registrationConfirmationFrameName } from "@shared/registrationConfirmation";
 
 const eventDetails = {
@@ -66,6 +66,54 @@ const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biote
 const stJohnsLogoUrl = `${import.meta.env.BASE_URL}assets/st-johns-school.jpg`;
 const registrationEndpoint = "https://script.google.com/macros/s/AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q/exec";
 const registrationConfirmationTimeoutMs = 15000;
+const eventCountdownTarget = new Date("2026-10-09T00:00:00+05:30").getTime();
+
+function createTeamMember(): TeamMemberInput {
+  return { name: "", grade: "", phone: "", email: "" };
+}
+
+function getCountdownParts(now: number) {
+  let remaining = Math.max(0, eventCountdownTarget - now);
+  const days = Math.floor(remaining / 86_400_000);
+  remaining -= days * 86_400_000;
+  const hours = Math.floor(remaining / 3_600_000);
+  remaining -= hours * 3_600_000;
+  const minutes = Math.floor(remaining / 60_000);
+  remaining -= minutes * 60_000;
+  const seconds = Math.floor(remaining / 1_000);
+  return { days, hours, minutes, seconds };
+}
+
+function EventCountdown() {
+  const [now, setNow] = useState(() => Date.now());
+  const countdown = getCountdownParts(now);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setNow(Date.now()), 1_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const countdownUnits = [
+    { label: "Days", value: countdown.days },
+    { label: "Hours", value: countdown.hours },
+    { label: "Minutes", value: countdown.minutes },
+    { label: "Seconds", value: countdown.seconds },
+  ];
+
+  return (
+    <div className="event-countdown" role="timer" aria-live="off" aria-label={`Countdown to 9 October 2026: ${countdown.days} days, ${countdown.hours} hours, ${countdown.minutes} minutes, and ${countdown.seconds} seconds remaining`}>
+      <span className="event-countdown-label">COUNTDOWN TO EVENT DAY</span>
+      <div className="event-countdown-units">
+        {countdownUnits.map((unit) => (
+          <span className="event-countdown-unit" key={unit.label}>
+            <strong>{String(unit.value).padStart(unit.label === "Days" ? 3 : 2, "0")}</strong>
+            <small>{unit.label}</small>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function StJohnsLogo({ alt }: { alt: string }) {
   const [source, setSource] = useState(stJohnsLogoUrl);
@@ -146,6 +194,7 @@ const registrationDefaults: RegistrationInput = {
   category: "Awareness Challenge",
   skills: [],
   projectInterest: "",
+  teamMembers: [],
   consent: false,
 };
 
@@ -183,7 +232,7 @@ export default function Home() {
 
   useEffect(() => {
     const completeSubmission = (event: MessageEvent<unknown>) => {
-      const confirmation = matchRegistrationConfirmation(event.origin, event.data, pendingNonceRef.current);
+      const confirmation = matchRegistrationConfirmation(event.origin, event.data, pendingNonceRef.current, window.location.origin);
 
       if (!confirmation) return;
 
@@ -230,6 +279,7 @@ export default function Home() {
         category: errors.category?.[0],
         skills: errors.skills?.[0],
         projectInterest: errors.projectInterest?.[0],
+        teamMembers: errors.teamMembers?.[0],
         consent: errors.consent?.[0],
       });
       setSubmitState("idle");
@@ -266,6 +316,26 @@ export default function Home() {
   const updateField = <Field extends keyof RegistrationInput>(field: Field, value: RegistrationInput[Field]) => {
     setFormValues((current) => ({ ...current, [field]: value }));
     setFieldErrors((current) => ({ ...current, [field]: undefined }));
+    setSubmitState("idle");
+  };
+
+  const updateTeamSize = (teamSize: RegistrationInput["teamSize"]) => {
+    const additionalMemberCount = Number(teamSize) - 1;
+    setFormValues((current) => ({
+      ...current,
+      teamSize,
+      teamMembers: Array.from({ length: additionalMemberCount }, (_, index) => current.teamMembers[index] ?? createTeamMember()),
+    }));
+    setFieldErrors((current) => ({ ...current, teamSize: undefined, teamMembers: undefined }));
+    setSubmitState("idle");
+  };
+
+  const updateTeamMember = <Field extends keyof TeamMemberInput>(memberIndex: number, field: Field, value: TeamMemberInput[Field]) => {
+    setFormValues((current) => ({
+      ...current,
+      teamMembers: current.teamMembers.map((member, index) => index === memberIndex ? { ...member, [field]: value } : member),
+    }));
+    setFieldErrors((current) => ({ ...current, teamMembers: undefined }));
     setSubmitState("idle");
   };
 
@@ -364,6 +434,7 @@ export default function Home() {
               <a className="button button-primary" href="#register">Enter Hackfinity <ArrowUpRight aria-hidden="true" /></a>
               <a className="button button-ghost" href="#story">Find the signal <ArrowDown aria-hidden="true" /></a>
             </div>
+            <EventCountdown />
           </div>
 
           <div className="hero-brief-card" aria-label="Hackfinity 2026 challenge summary">
@@ -570,7 +641,7 @@ export default function Home() {
               </div>
               <div className="form-field">
                 <label htmlFor="teamSize">TEAM SIZE</label>
-                <select id="teamSize" value={formValues.teamSize} onChange={(event) => updateField("teamSize", event.target.value as RegistrationInput["teamSize"])} aria-invalid={Boolean(fieldErrors.teamSize)} aria-describedby={fieldErrors.teamSize ? "team-size-error" : undefined}>
+                <select id="teamSize" value={formValues.teamSize} onChange={(event) => updateTeamSize(event.target.value as RegistrationInput["teamSize"])} aria-invalid={Boolean(fieldErrors.teamSize)} aria-describedby={fieldErrors.teamSize ? "team-size-error" : undefined}>
                   {["1", "2", "3", "4", "5", "6"].map((size) => <option key={size} value={size}>{size} participant{size === "1" ? "" : "s"}</option>)}
                 </select>
                 {fieldErrors.teamSize && <span id="team-size-error" className="field-error">{fieldErrors.teamSize}</span>}
@@ -590,6 +661,39 @@ export default function Home() {
                 {fieldErrors.category && <span id="category-error" className="field-error">{fieldErrors.category}</span>}
               </div>
             </div>
+
+            {formValues.teamMembers.length > 0 && (
+              <fieldset className="team-member-fieldset" aria-describedby={fieldErrors.teamMembers ? "team-members-error" : undefined}>
+                <legend>ADDITIONAL TEAM MEMBER DETAILS</legend>
+                <p>The team lead’s details are already captured above. Add the requested details for all {formValues.teamMembers.length} additional member{formValues.teamMembers.length === 1 ? "" : "s"}.</p>
+                <div className="team-member-stack">
+                  {formValues.teamMembers.map((member, index) => (
+                    <article className="team-member-card" key={index}>
+                      <div className="team-member-card-heading"><span>MEMBER {String(index + 2).padStart(2, "0")}</span><i aria-hidden="true" /></div>
+                      <div className="form-grid">
+                        <div className="form-field">
+                          <label htmlFor={`member-${index}-name`}>FULL NAME</label>
+                          <input id={`member-${index}-name`} value={member.name} onChange={(event) => updateTeamMember(index, "name", event.target.value)} placeholder="Team member’s full name" autoComplete="name" aria-invalid={Boolean(fieldErrors.teamMembers)} />
+                        </div>
+                        <div className="form-field">
+                          <label htmlFor={`member-${index}-grade`}>CLASS / GRADE</label>
+                          <input id={`member-${index}-grade`} value={member.grade} onChange={(event) => updateTeamMember(index, "grade", event.target.value)} placeholder="For example, Class XI" aria-invalid={Boolean(fieldErrors.teamMembers)} />
+                        </div>
+                        <div className="form-field">
+                          <label htmlFor={`member-${index}-phone`}>STUDENT CONTACT</label>
+                          <input id={`member-${index}-phone`} type="tel" value={member.phone} onChange={(event) => updateTeamMember(index, "phone", event.target.value)} placeholder="Team member’s mobile number" autoComplete="tel" aria-invalid={Boolean(fieldErrors.teamMembers)} />
+                        </div>
+                        <div className="form-field">
+                          <label htmlFor={`member-${index}-email`}>EMAIL ADDRESS</label>
+                          <input id={`member-${index}-email`} type="email" value={member.email} onChange={(event) => updateTeamMember(index, "email", event.target.value)} placeholder="member@example.com" autoComplete="email" aria-invalid={Boolean(fieldErrors.teamMembers)} />
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                {fieldErrors.teamMembers && <span id="team-members-error" className="field-error">{fieldErrors.teamMembers}</span>}
+              </fieldset>
+            )}
 
             <fieldset className="form-choice-field" aria-describedby={fieldErrors.skills ? "skills-error" : undefined}>
               <legend>AREAS YOU WANT TO EXPLORE</legend>

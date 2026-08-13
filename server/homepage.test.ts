@@ -41,12 +41,14 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain("HOWNWHY");
     expect(page).toContain('/assets/st-johns-school.jpg');
     expect(page).toContain('school-host-mark');
-    expect(page).toContain('30 DAYS · 4 CHALLENGES');
+    expect(page).toContain("30 DAYS · 4 CHALLENGES");
+    expect(page).toContain("COUNTDOWN TO EVENT DAY");
     expect(page).toContain("REGISTRATION SYSTEM: LIVE");
     expect(page).toContain("are sent to the organiser&#x27;s registration sheet.");
     expect(page).toContain("Submit my application");
     expect(page).toContain("PARENT / GUARDIAN CONTACT");
     expect(page).toContain("PREFERRED CHALLENGE CATEGORY");
     expect(page).toContain("AREAS YOU WANT TO EXPLORE");
+    expect(page).toContain("TEAM SIZE");
   });
 });
