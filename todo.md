@@ -64,8 +64,8 @@
 - [x] Verify `Hackfinity-ST-JOHN-S` can receive the Hackfinity repository, prepare the GitHub Pages base-path migration, and transfer ownership only after explicit user confirmation.
 - [x] Verify the completed transfer to `Hackfinity-ST-JOHN-S`, rename the repository to `hackfinity`, and confirm the organization-hosted Pages URL.
 - [x] Verify the renamed `Hackfinity-ST-JOHN-S/hackfinity` repository and its final GitHub Pages deployment at the clean organization URL.
-- [ ] Publish the verified automatic stale-route recovery safeguard to the organization repository and recheck the live site after its deployment.
-- [ ] Preserve the existing `Hackfinity-ST-JOHN-S/hackfinity` repository without creating a duplicate after the managed GitHub link cannot attach to a transferred repository, then synchronize the tested safeguard directly.
+- [x] Publish the verified automatic stale-route recovery safeguard to the organization repository and recheck the live site after its deployment.
+- [x] Preserve the existing `Hackfinity-ST-JOHN-S/hackfinity` repository without creating a duplicate after the managed GitHub link cannot attach to a transferred repository, then synchronize the tested safeguard directly.
 
 ## Reference notes
 
