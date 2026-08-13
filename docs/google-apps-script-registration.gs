@@ -5,8 +5,8 @@
  * registrations to the "Registrations" tab.
  */
 const REGISTRATION_SHEET_NAME = "Registrations";
-const HACKFINITY_PARENT_ORIGIN = "https://hackfinity-st-john-s.github.io";
 const HACKFINITY_CONFIRMATION_URL = "https://hackfinity-st-john-s.github.io/hackfinity/registration-confirmation.html";
+const CONFIRMATION_CACHE_SECONDS = 600;
 const REGISTRATION_HEADERS = [
   "Registration ID",
   "Submitted On",
@@ -50,7 +50,12 @@ const VALID_SKILLS = new Set([
   "Entrepreneurship",
 ]);
 
-function doGet() {
+function doGet(event) {
+  const nonce = String(event?.parameter?.confirmationNonce || "");
+  if (nonce) {
+    const result = CacheService.getScriptCache().get(confirmationCacheKey(nonce));
+    return jsonResponse(result ? JSON.parse(result) : { source: "hackfinity-registration", nonce, pending: true });
+  }
   return jsonResponse({ ok: true, service: "Hackfinity registration receiver" });
 }
 
@@ -61,6 +66,7 @@ function doPost(event) {
 
     // Quietly reject automated submissions that fill the hidden honeypot field.
     if (String(payload.website || "").trim()) {
+      cacheConfirmation(payload, true);
       return confirmationResponse(payload, true);
     }
 
@@ -96,9 +102,11 @@ function doPost(event) {
       lock.releaseLock();
     }
 
+    cacheConfirmation(payload, true);
     return confirmationResponse(payload, true);
   } catch (error) {
     console.error(error);
+    cacheConfirmation(payload, false);
     return confirmationResponse(payload, false);
   }
 }
@@ -250,9 +258,21 @@ function jsonResponse(body) {
 
 function confirmationResponse(payload, ok) {
   const message = { source: "hackfinity-registration", nonce: String(payload?.nonce || ""), ok: Boolean(ok) };
-  if (payload?.transport === "fetch") return jsonResponse(message);
-
   const confirmationUrl = `${HACKFINITY_CONFIRMATION_URL}?nonce=${encodeURIComponent(message.nonce)}&ok=${message.ok ? "1" : "0"}`;
   return HtmlService.createHtmlOutput(`<script>window.location.replace(${JSON.stringify(confirmationUrl)});</script><meta http-equiv="refresh" content="0; url=${confirmationUrl}">`)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function confirmationCacheKey(nonce) {
+  return `hackfinity-registration:${String(nonce || "")}`;
+}
+
+function cacheConfirmation(payload, ok) {
+  const nonce = String(payload?.nonce || "");
+  if (!nonce) return;
+  CacheService.getScriptCache().put(
+    confirmationCacheKey(nonce),
+    JSON.stringify({ source: "hackfinity-registration", nonce, ok: Boolean(ok) }),
+    CONFIRMATION_CACHE_SECONDS,
+  );
 }

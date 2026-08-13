@@ -65,7 +65,9 @@ const impactCards = [
 const focusAreas = ["Artificial Intelligence", "Robotics", "Engineering", "Biotechnology", "Design Thinking", "Digital Technologies", "Entrepreneurship"];
 const stJohnsLogoUrl = `${import.meta.env.BASE_URL}assets/st-johns-school.jpg`;
 const registrationEndpoint = "https://script.google.com/macros/s/AKfycbyEIVN6XTAyt2i40exs0NddW3tRtuoAHbkDbt0sSth9T2Jd8uEg1_UHPyuJRTnMA_Pl4Q/exec";
+const registrationConfirmationFrameName = "hackfinity-registration-confirmation";
 const registrationResponseTimeoutMs = 15000;
+const registrationStatusPollIntervalMs = 700;
 const eventCountdownTarget = new Date("2026-10-09T00:00:00+05:30").getTime();
 
 function createTeamMember(): TeamMemberInput {
@@ -262,21 +264,34 @@ export default function Home() {
     setSubmitState("submitting");
 
     const nonce = window.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
+    const transportForm = document.createElement("form");
+    transportForm.action = registrationEndpoint;
+    transportForm.method = "POST";
+    transportForm.target = registrationConfirmationFrameName;
+    transportForm.className = "registration-transport";
+
+    const payload = document.createElement("textarea");
+    payload.name = "payload";
+    payload.value = JSON.stringify({ ...parsed.data, website: honeypot, nonce });
+    transportForm.appendChild(payload);
+    document.body.appendChild(transportForm);
+    transportForm.submit();
+    transportForm.remove();
+
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), registrationResponseTimeoutMs);
 
     try {
-      const response = await fetch(registrationEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=UTF-8" },
-        body: JSON.stringify({ ...parsed.data, website: honeypot, nonce, transport: "fetch" }),
-        signal: controller.signal,
-      });
-      const confirmation = matchRegistrationConfirmation(await response.json(), nonce);
+      let confirmation = null;
+      while (!controller.signal.aborted && !confirmation) {
+        const statusUrl = `${registrationEndpoint}?confirmationNonce=${encodeURIComponent(nonce)}`;
+        const response = await fetch(statusUrl, { cache: "no-store", signal: controller.signal });
+        confirmation = matchRegistrationConfirmation(await response.json(), nonce);
+        if (!confirmation) await new Promise((resolve) => window.setTimeout(resolve, registrationStatusPollIntervalMs));
+      }
 
-      if (!confirmation) {
-        setSubmitState("unavailable");
-      } else if (confirmation.ok) {
+      if (!confirmation) throw new Error("The registration status was not available in time.");
+      if (confirmation.ok) {
         setFormValues(registrationDefaults);
         setHoneypot("");
         setSubmitState("submitted");
@@ -556,6 +571,7 @@ export default function Home() {
           </div>
 
           <form className="registration-form" data-reveal onSubmit={handleFormSubmit} noValidate>
+            <iframe className="registration-confirmation-frame" name={registrationConfirmationFrameName} title="Registration submission transport" />
             <div className="form-honeypot" aria-hidden="true">
               <label htmlFor="website">Website</label>
               <input id="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(event) => setHoneypot(event.target.value)} />

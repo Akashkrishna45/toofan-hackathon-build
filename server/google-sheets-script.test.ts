@@ -22,4 +22,13 @@ describe("Official Google Sheets registration script", () => {
     expect(script).toContain('setNumberFormat("dd mmm yyyy, hh:mm")');
     expect(script).toContain("createFilter()");
   });
+
+  it("stores only a short-lived nonce confirmation for browser polling", () => {
+    const script = readFileSync(resolve(process.cwd(), "docs/google-apps-script-registration.gs"), "utf8");
+
+    expect(script).toContain("CacheService.getScriptCache()");
+    expect(script).toContain("confirmationNonce");
+    expect(script).toContain("CONFIRMATION_CACHE_SECONDS = 600");
+    expect(script).not.toContain("transport === \"fetch\"");
+  });
 });

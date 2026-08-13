@@ -91,6 +91,8 @@
 - [ ] Open the bound Apps Script project under the same official Google account profile that owns the Hackfinity registration Sheet before redeploying the updated source.
 - [ ] Present registrations in the official Google Sheet with professional headers, date formatting, readable widths, filters, frozen headings, and organised team-member details.
 - [ ] Replace the unreliable iframe confirmation handoff with a browser-readable, nonce-verified official Apps Script response after the now-verified professional Sheet write.
+- [ ] Diagnose the official Apps Script browser POST response using a honeypot-marked non-writing request before attempting any further real registration confirmation test.
+- [ ] Confirm registrations with a nonce-only, CORS-readable status poll after the private Apps Script form submission, without placing student data in a URL.
 
 ## Reference notes
 

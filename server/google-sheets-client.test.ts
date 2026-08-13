@@ -19,4 +19,8 @@ describe("Google Sheets registration client", () => {
     expect(matchRegistrationConfirmation(response, "session-nonce")).toEqual(response);
     expect(matchRegistrationConfirmation(response, "different-nonce")).toBeNull();
   });
+
+  it("continues polling when the nonce-only status response is pending", () => {
+    expect(matchRegistrationConfirmation({ source: "hackfinity-registration", nonce: "session-nonce", pending: true }, "session-nonce")).toBeNull();
+  });
 });
