@@ -10,3 +10,7 @@ The mobile hero reserved-zone correction was reviewed in the development preview
 | 1280 × 720 | The desktop hero composition is unchanged by the mobile-only reserved-zone rule. |
 
 The header was also checked at mobile and desktop widths after replacing only its abstract symbol with the supplied official St. John’s School crest. The existing `Hosted by St. John’s School · Anchal` text remains unchanged.
+
+GitHub Pages deployment `8cc3b89` completed successfully. The public crest asset at `/hackfinity/assets/st-johns-school-official-crest.jpg` returned HTTP 200 with an `image/jpeg` content type, confirming that the supplied crest is available at the live repository-aware path.
+
+A fresh live GitHub Pages verification rendered both the normal desktop page and a temporary 414px embedded viewport from the same deployed URL. In both layouts, the official crest displayed beside the unchanged `Hosted by St. John’s School · Anchal` lockup. The 414px viewport also confirmed that the field brief, presenter line, Hackfinity wordmark, actions, countdown, and event metadata remain visually separate.

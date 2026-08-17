@@ -101,11 +101,13 @@
 - [x] Avoid reapplying professional Sheet formatting on every registration write so the nonce status is cached before the browser confirmation window ends.
 - [x] Reserve a mobile hero brief zone so the field brief, St. John’s presenter line, and Hackfinity title cannot overlap on narrow phones.
 - [x] Verify the repaired hero at 360px, 390px, 414px, and desktop widths, protecting the layout with regression coverage.
-- [ ] Send a professional registration-receipt email from the official event account only after the official Sheet append succeeds.
-- [ ] Record confirmation-email sent, failed, and retry status in the professional Registrations Sheet without exposing guardian or teammate contact data in the email.
-- [ ] Add duplicate-send protection and an organiser-only resend function for failed confirmation emails.
-- [ ] Bundle the supplied official St. John’s School crest at a GitHub Pages-safe path and replace the non-public header image reference.
-- [ ] Publish and verify the official crest at mobile and desktop widths while preserving the existing “Hosted by St. John’s School · Anchal” text exactly.
+- [x] Deferred by user request: send a professional registration-receipt email from the official event account only after the user explicitly asks to resume this work.
+- [x] Deferred by user request: record confirmation-email sent, failed, and retry status in the professional Registrations Sheet only after email work is resumed.
+- [x] Deferred by user request: add duplicate-send protection and an organiser-only resend function only after email work is resumed.
+- [x] Confirm the user-directed deferral of confirmation-email implementation until an explicit future request.
+- [x] Bundle the supplied official St. John’s School crest at a GitHub Pages-safe path and replace the non-public header image reference.
+- [x] Publish and verify the official crest at mobile and desktop widths while preserving the existing “Hosted by St. John’s School · Anchal” text exactly.
+- [x] Capture a live GitHub Pages visual verification of the deployed official crest beside the unchanged host text at mobile and desktop widths.
 
 ## Reference notes
 
