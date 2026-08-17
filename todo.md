@@ -99,6 +99,13 @@
 - [x] Retire or explicitly supersede the old Apps Script deployment, documenting that the public website now uses the new nonce-status endpoint.
 - [x] Confirm one final live registration reaches the browser’s submitted state through the new endpoint before closing the confirmation-flow work.
 - [x] Avoid reapplying professional Sheet formatting on every registration write so the nonce status is cached before the browser confirmation window ends.
+- [x] Reserve a mobile hero brief zone so the field brief, St. John’s presenter line, and Hackfinity title cannot overlap on narrow phones.
+- [x] Verify the repaired hero at 360px, 390px, 414px, and desktop widths, protecting the layout with regression coverage.
+- [ ] Send a professional registration-receipt email from the official event account only after the official Sheet append succeeds.
+- [ ] Record confirmation-email sent, failed, and retry status in the professional Registrations Sheet without exposing guardian or teammate contact data in the email.
+- [ ] Add duplicate-send protection and an organiser-only resend function for failed confirmation emails.
+- [ ] Bundle the supplied official St. John’s School crest at a GitHub Pages-safe path and replace the non-public header image reference.
+- [ ] Publish and verify the official crest at mobile and desktop widths while preserving the existing “Hosted by St. John’s School · Anchal” text exactly.
 
 ## Reference notes
 

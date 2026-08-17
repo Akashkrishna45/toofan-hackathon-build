@@ -28,6 +28,8 @@ const eventDetails = {
   venue: "ST. JOHN'S SCHOOL, ANCHAL",
 };
 
+const officialHeaderCrestUrl = `${import.meta.env.BASE_URL}assets/st-johns-school-official-crest.jpg`;
+
 const navItems = [
   { label: "The Storm", href: "#story" },
   { label: "Experience", href: "#experience" },
@@ -353,7 +355,7 @@ export default function Home() {
 
       <header className="site-header">
         <a className="school-lockup" href="#top" aria-label="Hackfinity home">
-          <span className="school-host-mark" aria-hidden="true"><i /><i /><i /></span>
+          <span className="school-host-mark" aria-hidden="true"><img className="school-host-crest" src={officialHeaderCrestUrl} alt="" /></span>
           <span className="school-lockup-copy">
             <span className="school-lockup-top">HOSTED BY</span>
             <span className="school-lockup-name">ST. JOHN&apos;S <em>SCHOOL · ANCHAL</em></span>
