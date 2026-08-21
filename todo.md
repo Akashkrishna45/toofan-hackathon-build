@@ -109,7 +109,7 @@
 - [x] Publish and verify the official crest at mobile and desktop widths while preserving the existing “Hosted by St. John’s School · Anchal” text exactly.
 - [x] Capture a live GitHub Pages visual verification of the deployed official crest beside the unchanged host text at mobile and desktop widths.
 - [x] Place the supplied TOOFAN – The Narco Hunt logo beside the desktop Claim your signal link without changing the mobile-header layout.
-- [ ] Publish the TOOFAN navigation-logo update to GitHub Pages and verify the live desktop and mobile header layouts.
+- [x] Publish the TOOFAN navigation-logo update to GitHub Pages and verify the live desktop and mobile header layouts.
 
 ## Reference notes
 
