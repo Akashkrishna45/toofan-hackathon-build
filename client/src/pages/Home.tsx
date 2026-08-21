@@ -29,6 +29,7 @@ const eventDetails = {
 };
 
 const officialHeaderCrestUrl = `${import.meta.env.BASE_URL}assets/st-johns-school-official-crest.jpg`;
+const toofanNavigationLogoUrl = `${import.meta.env.BASE_URL}assets/toofan-the-narco-hunt-logo.png`;
 
 const navItems = [
   { label: "The Storm", href: "#story" },
@@ -368,7 +369,11 @@ export default function Home() {
           ))}
         </nav>
 
-        <a className="nav-register" href="#register">Claim your signal <ArrowUpRight aria-hidden="true" /></a>
+        <a className="nav-register" href="#register">
+          <img className="nav-toofan-logo" src={toofanNavigationLogoUrl} alt="" aria-hidden="true" />
+          <span>Claim your signal</span>
+          <ArrowUpRight aria-hidden="true" />
+        </a>
         <button
           className="mobile-menu-button"
           type="button"

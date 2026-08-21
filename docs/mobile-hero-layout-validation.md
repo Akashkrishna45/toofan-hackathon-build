@@ -14,3 +14,5 @@ The header was also checked at mobile and desktop widths after replacing only it
 GitHub Pages deployment `8cc3b89` completed successfully. The public crest asset at `/hackfinity/assets/st-johns-school-official-crest.jpg` returned HTTP 200 with an `image/jpeg` content type, confirming that the supplied crest is available at the live repository-aware path.
 
 A fresh live GitHub Pages verification rendered both the normal desktop page and a temporary 414px embedded viewport from the same deployed URL. In both layouts, the official crest displayed beside the unchanged `Hosted by St. John’s School · Anchal` lockup. The 414px viewport also confirmed that the field brief, presenter line, Hackfinity wordmark, actions, countdown, and event metadata remain visually separate.
+
+The supplied TOOFAN – The Narco Hunt logo was added beside the desktop `Claim your signal` navigation link. Desktop review confirms the supplied mark is legible without crowding the link; the 390px header remains unchanged because this desktop navigation element is hidden at the existing mobile breakpoint.

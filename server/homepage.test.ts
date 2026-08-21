@@ -43,6 +43,8 @@ describe("TOOFAN homepage", () => {
     expect(page).toContain('school-host-mark');
     expect(page).toContain('school-host-crest');
     expect(page).toContain('/assets/st-johns-school-official-crest.jpg');
+    expect(page).toContain('nav-toofan-logo');
+    expect(page).toContain('/assets/toofan-the-narco-hunt-logo.png');
     expect(page).toContain("30 DAYS · 4 CHALLENGES");
     expect(page).toContain("COUNTDOWN TO EVENT DAY");
     expect(page).toContain("REGISTRATION SYSTEM: LIVE");
